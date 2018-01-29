@@ -4,23 +4,16 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import firebase from 'firebase'
+import VueFire from 'vuefire'
 
+Vue.use(VueFire)
 Vue.config.productionTip = false
+Vue.prototype.$firebase = firebase
 
-let app;
-// Initialize Firebase
-let config = {
-  apiKey: "AIzaSyC1T8rzAevGQeisRzkuis55T-LpYHci1IY",
-  authDomain: "fir-tutorial-45864.firebaseapp.com",
-  databaseURL: "https://fir-tutorial-45864.firebaseio.com",
-  projectId: "fir-tutorial-45864",
-  storageBucket: "",
-  messagingSenderId: "703240000781"
-}
+let app
 
-firebase.initializeApp(config)
-firebase.auth().onAuthStateChanged(function(user){
-  if(!app){
+firebase.auth().onAuthStateChanged(function (user) {
+  if (!app) {
     /* eslint-disable no-new */
     app = new Vue({
       el: '#app',
@@ -28,6 +21,5 @@ firebase.auth().onAuthStateChanged(function(user){
       components: { App },
       template: '<App/>'
     })
-
   }
 })

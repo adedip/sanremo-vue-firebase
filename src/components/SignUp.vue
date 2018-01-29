@@ -9,29 +9,27 @@
 </template>
 
 <script>
-  import firebase from 'firebase'
-
-  export default {
-    name: 'signUp',
-    data: function() {
-      return {
-        email: '',
-        password: ''
-      }
-    },
-    methods: {
-      signUp: function() {
-        firebase.auth().createUserWithEmailAndPassword(this.email, this.password).then(
-          (user) => {
-            this.$router.replace('hello')
-          },
-          (err) => {
-            alert('Ops... '+ err.message)
-          }
-        )
-      }
+export default {
+  name: 'signUp',
+  data: function() {
+    return {
+      email: '',
+      password: ''
+    }
+  },
+  methods: {
+    signUp: function() {
+      this.$firebase.auth().createUserWithEmailAndPassword(this.email, this.password).then(
+        (user) => {
+          this.$router.replace('songs')
+        },
+        (err) => {
+          alert('Ops... ' + err.message)
+        }
+      )
     }
   }
+}
 </script>
 
 <style scoped>
