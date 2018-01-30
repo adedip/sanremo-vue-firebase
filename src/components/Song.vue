@@ -22,7 +22,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(vote,index) in votes" :key="index">
+        <tr v-for="(vote,index) in filteredVotes" :key="index">
           <td>{{vote.song}}</td>
           <td>{{vote.look}}</td>
           <td>{{vote.user}}</td>
@@ -38,13 +38,13 @@ import {db} from '../firebase'
 export default {
   name: 'Song',
   firebase: {
-    song: db.ref('/songs/' + this.id),
-    votes: db.ref('/votes').orderByChild('id') // .equalTo(this.$route.params.id) //'-L41jlZg95DlHAKRkHnG'
+    song: db.ref('/songs/' + this.id)
   },
   data () {
     return {
       user: this.$firebase.auth().currentUser.email,
       id: this.$route.params.id,
+      filteredVotes: [],
       newVote: {
         song: '',
         look: '',
@@ -52,6 +52,9 @@ export default {
         id: this.$route.params.id
       }
     }
+  },
+  created () {
+    this.$bindAsArray('filteredVotes', this.$firebaseRefs.votes.orderByChild('id').equalTo(this.$route.params.id))
   },
   methods: {
     addVote: function () {
