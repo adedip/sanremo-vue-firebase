@@ -2,7 +2,7 @@
   <div id="app">
     <img src="./assets/logo.png">
     <button v-on:click="logout">logout</button>
-    <pre>{{this.user.email}}</pre>
+    <pre>{{this.user ? this.user.email : ''}}</pre>
     <router-view/>
   </div>
 </template>
