@@ -37,28 +37,26 @@ import {db} from '../firebase'
 
 export default {
   name: 'Song',
-  firebase: {
-    song: db.ref('/songs/' + this.id)
-  },
   data () {
     return {
       user: this.$firebase.auth().currentUser.email,
       id: this.$route.params.id,
       filteredVotes: [],
+      nestedVotes: [],
       newVote: {
         song: '',
         look: '',
-        user: this.$firebase.auth().currentUser.email,
-        id: this.$route.params.id
+        user: this.$firebase.auth().currentUser.email
       }
     }
   },
   created () {
-    this.$bindAsArray('filteredVotes', this.$firebaseRefs.votes.orderByChild('id').equalTo(this.$route.params.id))
+    this.nestedVotes = db.ref('/songs/' + this.id + '/votes')
+    this.$bindAsArray('filteredVotes', this.nestedVotes.orderByChild('id')) // .equalTo(this.$route.params.id))
   },
   methods: {
     addVote: function () {
-      this.$firebaseRefs.votes.push(this.newVote)
+      this.nestedVotes.push(this.newVote)
       this.newVote.title = ''
       this.newVote.author = ''
     }

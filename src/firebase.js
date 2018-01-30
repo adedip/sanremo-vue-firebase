@@ -13,3 +13,4 @@ let firebaseApp = firebase.initializeApp(config)
 let firebaseDB = firebaseApp.database()
 export let db = firebaseDB
 export let songsRef = firebaseDB.ref('songs')
+export let votessRef = firebaseDB.ref('votes')
