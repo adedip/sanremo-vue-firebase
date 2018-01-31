@@ -1,10 +1,16 @@
 <template>
-  <div id="app">
-    <img src="./assets/logo.png">
-    <button v-on:click="logout">logout</button>
-    <pre>{{this.user ? this.user.email : ''}}</pre>
-    <router-view/>
-  </div>
+  <b-container>
+    <b-jumbotron header="Sanremo 2018"
+                 lead="...perché Sanremo è Sanremo"
+    >
+      <div id="app">
+        <img src="./assets/logo.png">
+        <button v-on:click="logout">logout</button>
+        <pre>{{this.user ? this.user.email : ''}}</pre>
+        <router-view></router-view>
+      </div>
+    </b-jumbotron>
+  </b-container>
 </template>
 
 <script>

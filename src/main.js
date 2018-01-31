@@ -5,7 +5,11 @@ import App from './App'
 import router from './router'
 import firebase from 'firebase'
 import VueFire from 'vuefire'
+import BootstrapVue from 'bootstrap-vue'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
 
+Vue.use(BootstrapVue)
 Vue.use(VueFire)
 Vue.config.productionTip = false
 Vue.prototype.$firebase = firebase
