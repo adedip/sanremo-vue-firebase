@@ -8,6 +8,12 @@ import VueFire from 'vuefire'
 import BootstrapVue from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+import lodash from 'lodash'
+import VueLodash from 'vue-lodash'
+import Vuelidate from 'vuelidate'
+
+Vue.use(VueLodash, lodash)
+Vue.use(Vuelidate)
 
 Vue.use(BootstrapVue)
 Vue.use(VueFire)

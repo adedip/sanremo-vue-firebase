@@ -1,16 +1,24 @@
 <template>
-  <b-container>
-    <b-jumbotron header="Sanremo 2018"
-                 lead="...perché Sanremo è Sanremo"
-    >
-      <div id="app">
-        <img src="./assets/logo.png">
-        <button v-on:click="logout">logout</button>
-        <pre>{{this.user ? this.user.email : ''}}</pre>
-        <router-view></router-view>
-      </div>
-    </b-jumbotron>
-  </b-container>
+  <div id="app">
+    <b-navbar type="dark" variant="light">
+      <b-navbar-brand href="#">Sanremo 2018</b-navbar-brand>
+      <b-navbar-nav class="ml-auto">
+        <b-nav-item v-if="isLogged" href="#" disabled>{{user.email}}</b-nav-item>
+        <b-nav-item v-on:click="logout" v-if="isLogged">logout</b-nav-item>
+      </b-navbar-nav>
+    </b-navbar>
+    <b-container fluid>
+
+      <b-row class="text-center">
+        <b-col>
+          <img src="./assets/logo.png" style="max-width: 100%">
+          <pre>{{this.user ? this.user.email : ''}}</pre>
+          <button v-on:click="logout" v-if="isLogged">logout</button>
+          <router-view></router-view>
+        </b-col>
+      </b-row>
+    </b-container>
+  </div>
 </template>
 
 <script>
@@ -19,6 +27,11 @@ export default {
   data: function () {
     return {
       user: this.$firebase.auth().currentUser
+    }
+  },
+  computed: {
+    isLogged() {
+      return this.user != null
     }
   },
   methods: {
@@ -32,12 +45,4 @@ export default {
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
 </style>

@@ -17,9 +17,12 @@
     "bootstrap": "^4.0.0-alpha.6",
     "bootstrap-vue": "^2.0.0-rc.1",
     "firebase": "^4.9.0",
+    "lodash": "^4.17.4",
     "vue": "^2.5.2",
+    "vue-lodash": "^1.0.4",
     "vue-router": "^3.0.1",
-    "vuefire": "^1.4.5"
+    "vuefire": "^1.4.5",
+    "vuelidate": "^0.6.1"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",
