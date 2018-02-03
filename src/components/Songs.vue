@@ -1,5 +1,6 @@
 <template>
   <div class="hello">
+    <!-- FORM TO BE REMOVED -->
     <form id="form" class="form-inline" v-on:submit.prevent="addSong">
       <div class="form-group">
         <label for="songTitle">Title:</label>
@@ -9,22 +10,21 @@
         <label for="songAuthor">Author:</label>
         <input type="text" id="songAuthor" class="form-control" v-model="newSong.author">
       </div>
+      <div class="form-group">
+        <label for="songImage">Image:</label>
+        <input type="text" id="songImage" class="form-control" v-model="newSong.image_url">
+      </div>
       <input type="submit" class="btn btn-primary" value="Add song">
     </form>
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>Title</th>
-          <th>Author</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="(song,index) in songs" :key="index">
-          <td><router-link :to="{ name: 'Song', params: { id: song['.key'], title: song.title }}">{{song.title}}</router-link></td>
-          <td>{{song.author}}</td>
-        </tr>
-      </tbody>
-    </table>
+    <br><br>
+    <ul>
+        <li v-for="(song,index) in songs" :key="index" style="width:200px; min-height:200px;margin: 10px; vertical-aling:top">
+          <router-link :to="{ name: 'Song', params: { id: song['.key'], title: song.title, author: song.author }}">
+            <img :src="song.image_url" style="border-radius: 50%" height="150" width="150" />
+            <br>{{song.title}}
+          </router-link>
+        </li>
+    </ul>
   </div>
 </template>
 
@@ -40,7 +40,8 @@ export default {
     return {
       newSong: {
         title: '',
-        author: ''
+        author: '',
+        image_url: ''
       }
     }
   },
@@ -49,6 +50,7 @@ export default {
       this.$firebaseRefs.songs.push(this.newSong)
       this.newSong.title = ''
       this.newSong.author = ''
+      this.newSong.image_url = ''
     }
   }
 }

@@ -30,7 +30,7 @@ let router = new Router({
       component: SignUp
     },
     {
-      path: '/songs/:id/:title',
+      path: '/songs/:id/:title/:author',
       name: 'Song',
       component: Song,
       meta: {

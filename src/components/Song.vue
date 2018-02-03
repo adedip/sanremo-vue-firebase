@@ -1,7 +1,7 @@
 <template>
   <div class="hello">
     <router-link :to="{ name: 'Songs'}">all songs</router-link>
-    <h1>{{ $route.params.title }} - {{this.user}}</h1>
+    <h1>{{ $route.params.title }} - {{$route.params.author}}</h1>
     <form id="form" class="form-inline" v-on:submit.prevent="addVote" v-if="voted">
       <div class="form-group">
         <label for="songVote">Song:</label>
@@ -109,7 +109,7 @@ export default {
     },
     voted () {
       if (this.filteredVotes != null) {
-        return this._.filter(this.filteredVotes, {'user': this.user}).length > 0
+        return this._.filter(this.filteredVotes, {'user': this.user}).length >= 0
       } else {
         return true
       }

@@ -2,8 +2,8 @@
   <div class="sign-up">
     <h3>Registrati</h3>
     <b-row>
-      <b-col cols="5"></b-col>
-      <b-col cols="2" align-h="start">
+      <b-col lg="5"></b-col>
+      <b-col lg="2" align-h="start">
         <b-form>
           <b-form-group id="exampleInputGroup1"
                         label="Email address:"
