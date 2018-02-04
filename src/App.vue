@@ -19,9 +19,9 @@
 <script>
 export default {
   name: 'App',
-  isLogged: false,
   data: function () {
     return {
+      isLogged: false,
       user: this.$firebase.auth().currentUser
     }
   },

@@ -96,10 +96,9 @@ export default {
   },
   created () {
     this.nestedVotes = db.ref('/songs/' + this.id + '/votes')
-  },
-  mounted () {
     this.$bindAsArray('filteredVotes', this.nestedVotes.orderByChild('created_at'))
   },
+  mounted () { },
   computed: {
     reverseFilteredVotes () {
       if (this.filteredVotes == null) {
@@ -118,15 +117,17 @@ export default {
       if (this.filteredVotes == null) {
         return 0
       }
-      let total = this.filteredVotes.length * 10
-      return 100 * this._.sumBy(this.filteredVotes, 'song') / total
+      const total = this.filteredVotes.length * 10
+      const totalSongVotes = 100 * this._.sumBy(this.filteredVotes, 'song') / total
+      return isNaN(totalSongVotes) ? 0 : totalSongVotes
     },
     totalLookVotes () {
       if (this.filteredVotes == null) {
         return 0
       }
-      let total = this.filteredVotes.length * 10
-      return 100 * this._.sumBy(this.filteredVotes, 'look') / total
+      const total = this.filteredVotes.length * 10
+      const totalLookVotes = 100 * this._.sumBy(this.filteredVotes, 'look') / total
+      return isNaN(totalLookVotes) ? 0 : totalLookVotes
     }
   },
   methods: {
