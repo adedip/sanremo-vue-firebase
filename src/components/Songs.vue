@@ -24,9 +24,9 @@
       </b-form-group>
     </div>
     <ul>
-      <li v-for="(song, index) in songList" :key="index" style="max-width: 200px; margin: 10px; vertical-aling:top">
+      <li v-for="(song, index) in songList" :key="index" style="max-width: 220px; margin: 10px; vertical-aling:top">
         <div class="card">
-          <img class="card-img-top" :src="song.image_url" :alt="song.author">
+          <img class="card-img-top" :src="song.image_url" :alt="song.author" width="220">
           <div class="card-block">
             <h4 class="card-title">{{song.title}}</h4>
             <p class="card-text">
@@ -36,7 +36,9 @@
                           :key="bar.variant"
                           :striped="bar.striped">
                           <b-progress-bar :value="song.totalSongVotes">
-                            Canzone: <strong>{{ song.totalSongVotes / 10 }}</strong>
+                            <div style="position:absolute;padding-left:3px">
+                              Canzone: <strong>{{ song.totalSongVotes / 10 }}</strong>
+                            </div>
                           </b-progress-bar>
               </b-progress>
               <br>
@@ -45,7 +47,9 @@
                           :key="bar.variant2"
                           :striped="bar.striped">
                           <b-progress-bar :value="song.totalLookVotes">
-                            Look: <strong>{{ song.totalLookVotes / 10 }}</strong>
+                            <div style="position:absolute;padding-left:3px">
+                              Look: <strong>{{ song.totalLookVotes / 10 }}</strong>
+                            </div>
                           </b-progress-bar>
               </b-progress>
             </p>
@@ -77,13 +81,13 @@ export default {
     return {
       orderField: 'totalSongVotes',
       orderOptions: [
-        { text: 'Ordina per canzone', value: 'totalSongVotes' },
-        { text: 'Ordina per look', value: 'totalLookVotes' }
+        { text: 'Classifica canzone', value: 'totalSongVotes' },
+        { text: 'Classifica look', value: 'totalLookVotes' }
       ],
       bar: {
         value: 80,
         variant: 'info',
-        variant2: 'danger',
+        variant2: 'warning',
         striped: false
       },
       newSong: {

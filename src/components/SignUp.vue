@@ -6,7 +6,7 @@
       <b-col lg="2" align-h="start">
         <b-form>
           <b-form-group id="exampleInputGroup1"
-                        label="Email address:"
+                        label="Email:"
                         label-for="exampleInput1">
             <b-form-input id="exampleInput1"
                           type="email"

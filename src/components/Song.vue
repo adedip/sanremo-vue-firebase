@@ -1,56 +1,76 @@
 <template>
   <div class="hello">
-    <router-link :to="{ name: 'Songs'}">all songs</router-link>
-    <h1>{{ $route.params.title }} - {{$route.params.author}}</h1>
-    <form id="form" class="form-inline" v-on:submit.prevent="addVote" v-if="voted">
-      <div class="form-group">
-        <label for="songVote">Song:</label>
-        <input type="text" id="songVote" class="form-control" v-model.trim.number="newVote.song" @input="$v.newVote.song.$touch()">
-      </div>
-      <div v-if="$v.newVote.song.$error">
-        <span class="form-group__message" v-if="!$v.newVote.song.between">Voto tra 1 e 10</span>
-        <span class="form-group__message" v-if="!$v.newVote.song.required">Obbligatorio</span><span class="form-group__message" v-if="!$v.newVote.song.numeric">Inserisci un numero.</span>
-      </div>
-      <div class="form-group">
-        <label for="lookVote">Look:</label>
-        <input type="text" id="lookVote" class="form-control" v-model.trim.number="newVote.look" @input="$v.newVote.look.$touch()">
-      </div>
-      <div v-if="$v.newVote.look.$error">
-        <span class="form-group__message" v-if="!$v.newVote.song.between">Voto tra 1 e 10</span>
-        <span class="form-group__message" v-if="!$v.newVote.look.required">Obbligatorio</span><span class="form-group__message" v-if="!$v.newVote.look.numeric">Inserisci un numero.</span>
-      </div>
-      <input v-bind:disabled="$v.newVote.$invalid" type="submit" class="btn btn-primary" value="Add vote">
-    </form>
-
-    Canzone: {{totalSongVotes}}<br>
-    <b-progress :value="totalSongVotes"
-                :variant="bar.variant"
-                :key="bar.variant"
-                :striped="bar.striped"
-    ></b-progress>
+    <button class="btn btn-secondary"><router-link :to="{ name: 'Songs'}">Classifica</router-link></button>
     <br>
-    Look: {{totalLookVotes}}<br>
-    <b-progress :value="totalLookVotes"
-                :variant="bar.variant"
-                :key="bar.variant2"
-                :striped="bar.striped"
-    ></b-progress>
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>Song</th>
-          <th>Look</th>
-          <th>User</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="(vote,index) in reverseFilteredVotes" :key="index">
-          <td>{{vote.song}}</td>
-          <td>{{vote.look}}</td>
-          <td>{{vote.user}}</td>
-        </tr>
-      </tbody>
-    </table>
+    <br>
+    <b-row>
+      <b-col lg="8" offset-lg="2">
+        <div class="jumbotron">
+          <h1>{{ $route.params.title }}</h1>
+          <h3>{{ $route.params.author }}</h3>
+          <form id="form" v-on:submit.prevent="addVote" v-if="voted">
+            <div class="form-group">
+              <label for="songVote">Canzone</label>
+              <input type="number" id="songVote" class="form-control" v-model.trim.number="newVote.song" @input="$v.newVote.song.$touch()">
+            </div>
+            <div v-if="$v.newVote.song.$error">
+              <span class="form-group__message" v-if="!$v.newVote.song.between">Voto tra 1 e 10</span>
+              <span class="form-group__message" v-if="!$v.newVote.song.required">Obbligatorio</span><span class="form-group__message" v-if="!$v.newVote.song.numeric">Inserisci un numero.</span>
+            </div>
+            <div class="form-group">
+              <label for="lookVote">Look</label>
+              <input type="number" id="lookVote" class="form-control" v-model.trim.number="newVote.look" @input="$v.newVote.look.$touch()">
+            </div>
+            <div v-if="$v.newVote.look.$error">
+              <span class="form-group__message" v-if="!$v.newVote.song.between">Voto tra 1 e 10</span>
+              <span class="form-group__message" v-if="!$v.newVote.look.required">Obbligatorio</span><span class="form-group__message" v-if="!$v.newVote.look.numeric">Inserisci un numero.</span>
+            </div>
+            <input v-bind:disabled="$v.newVote.$invalid" type="submit" class="btn btn-primary" style="margin-top:10px" value="Vota!">
+          </form>
+        </div>
+      </b-col>
+    </b-row>
+    <b-row>
+      <b-col lg="8" offset-lg="2">
+        <b-progress
+                    :variant="bar.variant"
+                    :key="bar.variant"
+                    :striped="bar.striped">
+                    <b-progress-bar :value="totalSongVotes">
+                      <div style="position:absolute;padding-left:3px">
+                        Canzone: <strong>{{ totalSongVotes / 10 }}</strong>
+                      </div>
+                    </b-progress-bar>
+        </b-progress>
+        <br>
+        <b-progress
+                    :variant="bar.variant2"
+                    :key="bar.variant2"
+                    :striped="bar.striped">
+                    <b-progress-bar :value="totalLookVotes">
+                      <div style="position:absolute;padding-left:3px">
+                        Look: <strong>{{ totalLookVotes / 10 }}</strong>
+                      </div>
+                    </b-progress-bar>
+        </b-progress>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th style="text-align:center">Canzone</th>
+              <th style="text-align:center">Look</th>
+              <th style="text-align:center">Utente</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(vote,index) in reverseFilteredVotes" :key="index">
+              <td>{{vote.song}}</td>
+              <td>{{vote.look}}</td>
+              <td>{{vote.user}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </b-col>
+    </b-row>
   </div>
 </template>
 
@@ -65,7 +85,7 @@ export default {
       bar: {
         value: 80,
         variant: 'info',
-        variant2: 'success',
+        variant2: 'warning',
         striped: true
       },
       user: this.$firebase.auth().currentUser.email,
@@ -142,6 +162,30 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.progress-bar {
+  color: #000;
+  height: 30px;
+  line-height: 30px;
+  font-size: 15px;
+  padding-left: 5px;
+}
+
+.form-group{
+  margin-bottom: 0;
+}
+
+.form-group__message{
+  color: red;
+  font-size: 12px;
+  margin-bottom: 5px;
+}
+
+form{
+  max-width: 100%;
+  width: 300px;
+  margin: auto;
+}
+
 h1, h2 {
   font-weight: normal;
 }
