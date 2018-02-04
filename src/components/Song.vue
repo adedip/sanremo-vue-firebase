@@ -60,18 +60,27 @@
         <table class="table table-striped">
           <thead>
             <tr>
-              <th width="15%" style="text-align:center">Utente</th>
-              <th width="15%" style="text-align:center">Canzone</th>
-              <th width="20%" style="text-align:center">Look</th>
-              <th width="50%" style="text-align:center">Commento</th>
+              <th width="40%" style="text-align:center">Utente</th>
+              <th width="30%" style="text-align:center">Canzone</th>
+              <th width="30%" style="text-align:center">Look</th>
             </tr>
           </thead>
           <tbody>
             <tr v-for="(vote,index) in reverseFilteredVotes" :key="index">
-              <td>{{vote.user.split('@')[0]}}</td>
-              <td>{{vote.song}}</td>
-              <td>{{vote.look}}</td>
-              <td>{{vote.comment}}</td>
+              <td colspan="3" style="padding: 0">
+                <table width="100%">
+                  <tr>
+                    <td width="40%" style="text-align:center">{{vote.user.split('@')[0]}}</td>
+                    <td width="30%" style="text-align:center">{{vote.song}}</td>
+                    <td width="30%" style="text-align:center">{{vote.look}}</td>
+                  </tr>
+                  <tr>
+                    <td colspan="3" style="text-align:left">
+                      {{vote.comment}}
+                    </td>
+                  </tr>
+                </table>
+              </td>
             </tr>
           </tbody>
         </table>

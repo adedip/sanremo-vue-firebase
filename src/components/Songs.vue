@@ -26,7 +26,7 @@
     <ul>
       <li v-for="(song, index) in songList" :key="index" style="max-width: 220px; margin: 10px; vertical-aling:top">
         <div class="card">
-          <img class="card-img-top" :src="song.image_url" :alt="song.author" width="220">
+          <img class="card-img-top" :src="song.image_url" :alt="song.author" width="220"  height="220">
           <div class="card-block">
             <h4 class="card-title">{{song.title}}</h4>
             <p class="card-text">
@@ -135,6 +135,10 @@ export default {
     width: 100%;
     height: 15vw;
     object-fit: cover;
+}
+
+.card-img-top{
+  height: 220px !important
 }
 
 h1, h2 {
