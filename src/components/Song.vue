@@ -65,7 +65,7 @@
             <tr v-for="(vote,index) in reverseFilteredVotes" :key="index">
               <td>{{vote.song}}</td>
               <td>{{vote.look}}</td>
-              <td>{{vote.user}}</td>
+              <td>{{vote.user.split('@')[0]}}</td>
             </tr>
           </tbody>
         </table>
