@@ -1,7 +1,7 @@
 <template>
   <div class="hello">
     <!-- FORM TO BE REMOVED -->
-    <form id="form" class="form-inline" v-on:submit.prevent="addSong">
+    <form id="form" class="form-inline" v-on:submit.prevent="addSong" style="display:none">
       <div class="form-group">
         <label for="songTitle">Title:</label>
         <input type="text" id="songTitle" class="form-control" v-model="newSong.title">
@@ -18,32 +18,48 @@
     </form>
     <br><br>
     <div>
-      <b-form-group label="Ordinamento">
+      <b-form-group>
         <b-form-radio-group buttons id="orderRadio" v-model="orderField" :options="orderOptions" name="radioOpenions">
         </b-form-radio-group>
       </b-form-group>
     </div>
     <ul>
-      <li v-for="(song, index) in songList" :key="index" style="width:200px; min-height:200px;margin: 10px; vertical-aling:top">
-        <router-link :to="{ name: 'Song', params: { id: song['.key'], title: song.title, author: song.author }}">
+      <li v-for="(song, index) in songList" :key="index" style="max-width: 200px; margin: 10px; vertical-aling:top">
+        <div class="card">
+          <img class="card-img-top" :src="song.image_url" :alt="song.author">
+          <div class="card-block">
+            <h4 class="card-title">{{song.title}}</h4>
+            <p class="card-text">
+              <br>
+              <b-progress
+                          :variant="bar.variant"
+                          :key="bar.variant"
+                          :striped="bar.striped">
+                          <b-progress-bar :value="song.totalSongVotes">
+                            Canzone: <strong>{{ song.totalSongVotes / 10 }}</strong>
+                          </b-progress-bar>
+              </b-progress>
+              <br>
+              <b-progress
+                          :variant="bar.variant2"
+                          :key="bar.variant2"
+                          :striped="bar.striped">
+                          <b-progress-bar :value="song.totalLookVotes">
+                            Look: <strong>{{ song.totalLookVotes / 10 }}</strong>
+                          </b-progress-bar>
+              </b-progress>
+            </p>
+            <button class="btn btn-secondary">
+              <router-link :to="{ name: 'Song', params: { id: song['.key'], title: song.title, author: song.author }}">
+                Vota
+              </router-link>
+            </button>
+          </div>
+        </div>
+        <!-- <router-link :to="{ name: 'Song', params: { id: song['.key'], title: song.title, author: song.author }}">
           <img :src="song.image_url" style="border-radius: 50%" height="150" width="150" />
           <br>{{song.title}}
-        </router-link>
-        <div>
-          Canzone: {{song.totalSongVotes}}<br>
-            <b-progress :value="song.totalSongVotes"
-                        :variant="bar.variant"
-                        :key="bar.variant"
-                        :striped="bar.striped">
-            </b-progress>
-            <br>
-            Look: {{song.totalLookVotes}}<br>
-            <b-progress :value="song.totalLookVotes"
-                        :variant="bar.variant"
-                        :key="bar.variant2"
-                        :striped="bar.striped">
-            </b-progress>
-        </div>
+        </router-link> -->
       </li>
     </ul>
   </div>
@@ -67,8 +83,8 @@ export default {
       bar: {
         value: 80,
         variant: 'info',
-        variant2: 'success',
-        striped: true
+        variant2: 'danger',
+        striped: false
       },
       newSong: {
         title: '',
@@ -107,6 +123,16 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.progress-bar {
+  color: #000;
+}
+
+.card-img-top {
+    width: 100%;
+    height: 15vw;
+    object-fit: cover;
+}
+
 h1, h2 {
   font-weight: normal;
 }

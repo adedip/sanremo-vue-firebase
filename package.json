@@ -15,6 +15,7 @@
     "deploy": "firebase deploy"
   },
   "dependencies": {
+    "babel-polyfill": "^6.26.0",
     "bootstrap": "^4.0.0-alpha.6",
     "bootstrap-vue": "^2.0.0-rc.1",
     "firebase": "^4.9.0",

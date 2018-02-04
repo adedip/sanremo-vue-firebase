@@ -11,6 +11,7 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 import lodash from 'lodash'
 import VueLodash from 'vue-lodash'
 import Vuelidate from 'vuelidate'
+import 'babel-polyfill'
 
 Vue.use(VueLodash, lodash)
 Vue.use(Vuelidate)
