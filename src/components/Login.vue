@@ -56,7 +56,7 @@ export default {
           this.$router.replace('songs')
         },
         (err) => {
-          alert(err)
+          console.log(err)
         }
       )
     }

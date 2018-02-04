@@ -50,7 +50,7 @@ export default {
     signUp: function() {
       this.$firebase.auth().createUserWithEmailAndPassword(this.email, this.password).then(
         (user) => {
-          this.$router.replace('songs')
+          this.$router.replace('login')
         },
         (err) => {
           alert('Ops... ' + err.message)

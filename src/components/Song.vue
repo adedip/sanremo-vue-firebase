@@ -25,6 +25,10 @@
               <span class="form-group__message" v-if="!$v.newVote.song.between">Voto tra 1 e 10</span>
               <span class="form-group__message" v-if="!$v.newVote.look.required">Obbligatorio</span><span class="form-group__message" v-if="!$v.newVote.look.numeric">Inserisci un numero.</span>
             </div>
+            <div class="form-group">
+              <label for="Comment">Commento</label>
+              <textarea type="number" id="Comment" class="form-control" v-model="newVote.comment"></textarea>
+            </div>
             <input v-bind:disabled="$v.newVote.$invalid" type="submit" class="btn btn-primary" style="margin-top:10px" value="Vota!">
           </form>
         </div>
@@ -56,16 +60,18 @@
         <table class="table table-striped">
           <thead>
             <tr>
-              <th style="text-align:center">Canzone</th>
-              <th style="text-align:center">Look</th>
-              <th style="text-align:center">Utente</th>
+              <th width="15%" style="text-align:center">Utente</th>
+              <th width="15%" style="text-align:center">Canzone</th>
+              <th width="20%" style="text-align:center">Look</th>
+              <th width="50%" style="text-align:center">Commento</th>
             </tr>
           </thead>
           <tbody>
             <tr v-for="(vote,index) in reverseFilteredVotes" :key="index">
+              <td>{{vote.user.split('@')[0]}}</td>
               <td>{{vote.song}}</td>
               <td>{{vote.look}}</td>
-              <td>{{vote.user.split('@')[0]}}</td>
+              <td>{{vote.comment}}</td>
             </tr>
           </tbody>
         </table>
@@ -95,6 +101,7 @@ export default {
       newVote: {
         song: '',
         look: '',
+        comment: '',
         user: this.$firebase.auth().currentUser.email,
         created_at: Date.now()
       }
@@ -128,7 +135,7 @@ export default {
     },
     voted () {
       if (this.filteredVotes != null) {
-        return this._.filter(this.filteredVotes, {'user': this.user}).length >= 0
+        return !this._.filter(this.filteredVotes, {'user': this.user}).length > 0
       } else {
         return true
       }

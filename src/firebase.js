@@ -1,13 +1,13 @@
 import firebase from 'firebase'
 import _ from 'lodash'
 
-let config = {
-  apiKey: 'AIzaSyC1T8rzAevGQeisRzkuis55T-LpYHci1IY',
-  authDomain: 'fir-tutorial-45864.firebaseapp.com',
-  databaseURL: 'https://fir-tutorial-45864.firebaseio.com',
-  projectId: 'fir-tutorial-45864',
-  storageBucket: '',
-  messagingSenderId: '703240000781'
+var config = {
+  apiKey: 'AIzaSyBuI4CEFmBz_UtDqnUqiLoRLjNaZsmIQrk',
+  authDomain: 'sanremo-fae7a.firebaseapp.com',
+  databaseURL: 'https://sanremo-fae7a.firebaseio.com',
+  projectId: 'sanremo-fae7a',
+  storageBucket: 'sanremo-fae7a.appspot.com',
+  messagingSenderId: '2562111165'
 }
 
 let firebaseApp = firebase.initializeApp(config)
