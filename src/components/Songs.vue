@@ -17,19 +17,25 @@
       <input type="submit" class="btn btn-primary" value="Add song">
     </form>
     <br><br>
+    <div>
+      <b-form-group label="Ordinamento">
+        <b-form-radio-group buttons id="orderRadio" v-model="orderField" :options="orderOptions" name="radioOpenions">
+        </b-form-radio-group>
+      </b-form-group>
+    </div>
     <ul>
-        <li v-for="(song,index) in songs" :key="index" style="width:200px; min-height:200px;margin: 10px; vertical-aling:top">
-          <router-link :to="{ name: 'Song', params: { id: song['.key'], title: song.title, author: song.author }}">
-            <img :src="song.image_url" style="border-radius: 50%" height="150" width="150" />
-            <br>{{song.title}}
-          </router-link>
-        </li>
+      <li v-for="(song, index) in songList" :key="index" style="width:200px; min-height:200px;margin: 10px; vertical-aling:top">
+        <router-link :to="{ name: 'Song', params: { id: song['.key'], title: song.title, author: song.author }}">
+          <img :src="song.image_url" style="border-radius: 50%" height="150" width="150" />
+          <br>{{song.title}}
+        </router-link>
+      </li>
     </ul>
   </div>
 </template>
 
 <script>
-import {songsRef} from '../firebase'
+import {songsRef, totalVotes} from '../firebase'
 
 export default {
   name: 'Songs',
@@ -38,6 +44,11 @@ export default {
   },
   data () {
     return {
+      orderField: 'totalSongVotes',
+      orderOptions: [
+        { text: 'Ordina per canzone', value: 'totalSongVotes' },
+        { text: 'Ordina per look', value: 'totalLookVotes' }
+      ],
       newSong: {
         title: '',
         author: '',
@@ -45,7 +56,24 @@ export default {
       }
     }
   },
+  computed: {
+    songList: function () {
+      const list = this.songs.map(song => {
+        const votes = song.votes ? Object.values(song.votes) : []
+        const total = totalVotes(votes, ['song', 'look'])
+        song.totalSongVotes = total.song
+        song.totalLookVotes = total.look
+
+        return song
+      })
+
+      return this.orderBy(list, this.orderField)
+    }
+  },
   methods: {
+    orderBy: function(list, field) {
+      return this._.chain(list).orderBy(field).reverse().value()
+    },
     addSong: function () {
       this.$firebaseRefs.songs.push(this.newSong)
       this.newSong.title = ''
