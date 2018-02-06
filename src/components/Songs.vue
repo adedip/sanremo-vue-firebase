@@ -53,11 +53,10 @@
                           </b-progress-bar>
               </b-progress>
             </p>
-            <button class="btn btn-secondary">
-              <router-link :to="{ name: 'Song', params: { id: song['.key'], title: song.title, author: song.author }}">
-                Vota
-              </router-link>
-            </button>
+            <router-link :to="{ name: 'Song', params: { id: song['.key'], title: song.title, author: song.author }}">
+              <button class="btn btn-secondary">Vota</button>
+            </router-link>
+
           </div>
         </div>
         <!-- <router-link :to="{ name: 'Song', params: { id: song['.key'], title: song.title, author: song.author }}">

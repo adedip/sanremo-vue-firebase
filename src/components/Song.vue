@@ -1,6 +1,6 @@
 <template>
   <div class="hello">
-    <button class="btn btn-secondary"><router-link :to="{ name: 'Songs'}">Classifica</router-link></button>
+    <router-link :to="{ name: 'Songs'}"><button class="btn btn-secondary">Classifica</button></router-link>
     <br>
     <br>
     <b-row>
