@@ -29,7 +29,7 @@
           <h5 class="author">{{song.author}}</h5>
           <img class="card-img-top" :src="song.image_url" :alt="song.author" width="220"  height="220">
           <div class="card-block">
-            <h4 class="card-title">{{song.title}}</h4>
+            <h4 class="card-title">{{song.title | ellipsed}}</h4>
             <p class="card-text">
               <br>
               <b-progress
@@ -109,6 +109,12 @@ export default {
       })
 
       return this.orderBy(list, this.orderField)
+    }
+  },
+  filters: {
+    ellipsed: function(str) {
+      let n = 18
+      return (str.length > n) ? str.substr(0, n - 1) + '...' : str
     }
   },
   methods: {
