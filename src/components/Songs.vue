@@ -26,6 +26,7 @@
     <ul>
       <li v-for="(song, index) in songList" :key="index" style="max-width: 220px; margin: 10px; vertical-aling:top">
         <div class="card">
+          <h5 class="author">{{song.author}}</h5>
           <img class="card-img-top" :src="song.image_url" :alt="song.author" width="220"  height="220">
           <div class="card-block">
             <h4 class="card-title">{{song.title}}</h4>
@@ -143,6 +144,21 @@ export default {
 h1, h2 {
   font-weight: normal;
 }
+
+h4{
+  font-size: 1.1rem !important;
+}
+
+h5.author{
+  width: 100%;
+  font-size: 1.1rem !important;
+  text-align: center;
+  position: absolute;
+  color: #fff;
+  padding: 5px;
+  background: rgba(0,0,0,0.4);
+}
+
 ul {
   list-style-type: none;
   padding: 0;
