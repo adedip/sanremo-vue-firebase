@@ -50,7 +50,7 @@
                     :striped="bar.striped">
                     <b-progress-bar :value="totalSongVotes">
                       <div style="position:absolute;padding-left:3px">
-                        Canzone: <strong>{{ totalSongVotes / 10 }}</strong>
+                        Canzone: <strong>{{ (totalSongVotes / 10).toFixed(2) }}</strong>
                       </div>
                     </b-progress-bar>
         </b-progress>
@@ -61,11 +61,11 @@
                     :striped="bar.striped">
                     <b-progress-bar :value="totalLookVotes">
                       <div style="position:absolute;padding-left:3px">
-                        Look: <strong>{{ totalLookVotes / 10 }}</strong>
+                        Look: <strong>{{ (totalLookVotes / 10).toFixed(2) }}</strong>
                       </div>
                     </b-progress-bar>
         </b-progress>
-        <table class="table table-striped">
+        <table class="table">
           <thead>
             <tr>
               <th width="40%" style="text-align:center">Utente</th>
@@ -76,8 +76,8 @@
           <tbody>
             <tr v-for="(vote,index) in reverseFilteredVotes" :key="index">
               <td colspan="3" style="padding: 0">
-                <table width="100%">
-                  <tr>
+                <table width="100%" style="border: 1px solid #666" class="table striped">
+                  <tr style="background-color: #efefef">
                     <td width="40%" style="text-align:center">{{vote.winner ? '🏆' : ''}}{{vote.user.split('@')[0]}}</td>
                     <td width="30%" style="text-align:center">{{vote.song}}</td>
                     <td width="30%" style="text-align:center">{{vote.look}}</td>
