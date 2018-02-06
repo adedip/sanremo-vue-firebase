@@ -23,12 +23,14 @@
         </b-form-radio-group>
       </b-form-group>
     </div>
-    <div>
-      <b-form-group>
-        <label for="songSearchForm">Cerca</label>
-        <input id="songSearchForm" class="form-control" v-model.trim="songSearch">
-      </b-form-group>
-    </div>
+    <b-row>
+      <b-col offset-lg="4" lg="4">
+        <b-form-group>
+          <!-- <label for="songSearchForm">Cerca</label> -->
+          <input id="songSearchForm" class="form-control" v-model.trim="songSearch" placeholder="cerca">
+        </b-form-group>
+      </b-col>
+    </b-row>
     <ul>
       <li v-for="(song, index) in filteredSongList" :key="index" style="max-width: 220px; margin: 10px; vertical-aling:top">
         <div class="card">
