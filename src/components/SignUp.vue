@@ -53,7 +53,7 @@ export default {
           this.$router.replace('login')
         },
         (err) => {
-          alert('Ops... ' + err.message)
+          console.log('Ops... ' + err.message)
         }
       )
     }
