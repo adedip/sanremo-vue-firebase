@@ -41,7 +41,7 @@
                           :striped="bar.striped">
                           <b-progress-bar :value="song.totalSongVotes">
                             <div style="position:absolute;padding-left:3px">
-                              Canzone: <strong>{{ song.totalSongVotes / 10 }}</strong>
+                              Canzone: <strong>{{ (song.totalSongVotes / 10).toFixed(2) }}</strong>
                             </div>
                           </b-progress-bar>
               </b-progress>
@@ -52,7 +52,7 @@
                           :striped="bar.striped">
                           <b-progress-bar :value="song.totalLookVotes">
                             <div style="position:absolute;padding-left:3px">
-                              Look: <strong>{{ song.totalLookVotes / 10 }}</strong>
+                              Look: <strong>{{ (song.totalLookVotes / 10).toFixed(2) }}</strong>
                             </div>
                           </b-progress-bar>
               </b-progress>
