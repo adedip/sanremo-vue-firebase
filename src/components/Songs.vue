@@ -23,8 +23,14 @@
         </b-form-radio-group>
       </b-form-group>
     </div>
+    <div>
+      <b-form-group>
+        <label for="songSearchForm">Cerca</label>
+        <input id="songSearchForm" class="form-control" v-model.trim="songSearch">
+      </b-form-group>
+    </div>
     <ul>
-      <li v-for="(song, index) in songList" :key="index" style="max-width: 220px; margin: 10px; vertical-aling:top">
+      <li v-for="(song, index) in filteredSongList" :key="index" style="max-width: 220px; margin: 10px; vertical-aling:top">
         <div class="card">
           <h5 class="author">{{song.author}}</h5>
           <img class="card-img-top" :src="song.image_url" :alt="song.author" width="220"  height="220">
@@ -97,7 +103,8 @@ export default {
         title: '',
         author: '',
         image_url: ''
-      }
+      },
+      songSearch: ''
     }
   },
   computed: {
@@ -112,6 +119,15 @@ export default {
       })
 
       return this.orderBy(list, this.orderField)
+    },
+    filteredSongList: function () {
+      if (this.songSearch !== '') {
+        return this.songList.filter(song => {
+          return song.author.toLowerCase().indexOf(this.songSearch) !== -1 || song.title.toLowerCase().indexOf(this.songSearch) !== -1
+        })
+      }
+
+      return this.songList
     }
   },
   filters: {
