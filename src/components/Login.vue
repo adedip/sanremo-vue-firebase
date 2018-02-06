@@ -52,7 +52,8 @@ export default {
     login: function() {
       firebase.auth().signInWithEmailAndPassword(this.email, this.password).then(
         (user) => {
-          this.$user = user
+          this.user = user
+          this.isLogged = true
           this.$router.replace('songs')
         },
         (err) => {

@@ -28,3 +28,14 @@ export let totalVotes = function(votes, fields) {
 
   return resutl
 }
+
+export let totalWinners = function(votes) {
+  if (votes == null) {
+    return 0
+  }
+  let total = 0
+  votes.forEach(vote => {
+    total += vote.winner ? 1 : 0
+  })
+  return total
+}

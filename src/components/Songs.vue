@@ -29,6 +29,9 @@
           <h5 class="author">{{song.author}}</h5>
           <img class="card-img-top" :src="song.image_url" :alt="song.author" width="220"  height="220">
           <div class="card-block">
+            <p>
+              {{song.totalWinner}}
+            </p>
             <h4 class="card-title">{{song.title | ellipsed}}</h4>
             <p class="card-text">
               <br>
@@ -70,7 +73,7 @@
 </template>
 
 <script>
-import {songsRef, totalVotes} from '../firebase'
+import {songsRef, totalVotes, totalWinners} from '../firebase'
 
 export default {
   name: 'Songs',
@@ -101,10 +104,10 @@ export default {
     songList: function () {
       const list = this.songs.map(song => {
         const votes = song.votes ? Object.values(song.votes) : []
-        const total = totalVotes(votes, ['song', 'look'])
+        const total = totalVotes(votes, ['song', 'look', 'winner'])
         song.totalSongVotes = total.song
         song.totalLookVotes = total.look
-
+        song.totalWinner = '🏆'.repeat(totalWinners(votes))
         return song
       })
 
@@ -135,6 +138,10 @@ export default {
 <style scoped>
 .progress-bar {
   color: #000;
+}
+
+.card-block {
+  padding-top: 0;
 }
 
 .card-img-top {

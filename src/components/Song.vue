@@ -29,6 +29,14 @@
               <label for="Comment">Commento</label>
               <textarea type="number" id="Comment" class="form-control" v-model="newVote.comment"></textarea>
             </div>
+            <br>
+            <span>Per me vince <toggle-button v-model="newVote.winner"
+                                              :labels="{checked: 'Si', unchecked: 'No'}"
+                                              :height="30"
+                                              :width="55"
+              />
+            </span>
+            <br>
             <input v-bind:disabled="$v.newVote.$invalid" type="submit" class="btn btn-primary" style="margin-top:10px" value="Vota!">
           </form>
         </div>
@@ -70,7 +78,7 @@
               <td colspan="3" style="padding: 0">
                 <table width="100%">
                   <tr>
-                    <td width="40%" style="text-align:center">{{vote.user.split('@')[0]}}</td>
+                    <td width="40%" style="text-align:center">{{vote.winner ? '🏆' : ''}}{{vote.user.split('@')[0]}}</td>
                     <td width="30%" style="text-align:center">{{vote.song}}</td>
                     <td width="30%" style="text-align:center">{{vote.look}}</td>
                   </tr>
@@ -111,6 +119,7 @@ export default {
         song: '',
         look: '',
         comment: '',
+        winner: false,
         user: this.$firebase.auth().currentUser.email,
         created_at: Date.now()
       }

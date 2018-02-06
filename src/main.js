@@ -12,7 +12,9 @@ import lodash from 'lodash'
 import VueLodash from 'vue-lodash'
 import Vuelidate from 'vuelidate'
 import 'babel-polyfill'
+import ToggleButton from 'vue-js-toggle-button'
 
+Vue.use(ToggleButton)
 Vue.use(VueLodash, lodash)
 Vue.use(Vuelidate)
 
