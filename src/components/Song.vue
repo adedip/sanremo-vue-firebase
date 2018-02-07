@@ -115,6 +115,7 @@ export default {
       id: this.$route.params.id,
       filteredVotes: null,
       nestedVotes: [],
+      submitted: false,
       newVote: {
         song: '',
         look: '',
@@ -160,8 +161,6 @@ export default {
             maxVotes = 1
           }
           return this._.filter(this.filteredVotes, {'user': this.user}).length < maxVotes
-        } else {
-          return false
         }
       } else {
         return true
@@ -189,6 +188,7 @@ export default {
       this.nestedVotes.push(this.newVote)
       this.newVote.title = ''
       this.newVote.author = ''
+      this.submitted = true
     }
   }
 }
