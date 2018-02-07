@@ -22,7 +22,7 @@
               <input type="number" id="lookVote" class="form-control" v-model.trim.number="newVote.look" @input="$v.newVote.look.$touch()">
             </div>
             <div v-if="$v.newVote.look.$error">
-              <span class="form-group__message" v-if="!$v.newVote.song.between">Voto tra 1 e 10</span>
+              <span class="form-group__message" v-if="!$v.newVote.look.between">Voto tra 1 e 10</span>
               <span class="form-group__message" v-if="!$v.newVote.look.required">Obbligatorio</span><span class="form-group__message" v-if="!$v.newVote.look.numeric">Inserisci un numero.</span>
             </div>
             <div class="form-group">
