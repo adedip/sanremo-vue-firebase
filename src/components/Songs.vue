@@ -14,6 +14,10 @@
         <label for="songImage">Image:</label>
         <input type="text" id="songImage" class="form-control" v-model="newSong.image_url">
       </div>
+      <div class="form-group">
+        <label for="songYoung">Giovani:</label>
+        <input type="checkbox" id="songYoung" class="form-control" v-model="newSong.young">
+      </div>
       <input type="submit" class="btn btn-primary" value="Add song">
     </form>
     <br><br>
@@ -24,16 +28,23 @@
       </b-form-group>
     </div>
     <b-row>
-      <b-col offset-lg="4" lg="4">
+      <b-col offset-lg="4" lg="3">
         <b-form-group>
           <!-- <label for="songSearchForm">Cerca</label> -->
           <input id="songSearchForm" class="form-control" v-model.trim="songSearch" placeholder="cerca">
         </b-form-group>
       </b-col>
+      <b-col lg="1">
+        <toggle-button v-model="bigOnly"
+                                              :labels="{checked: 'Big', unchecked: 'Giovani'}"
+                                              :height="30"
+                                              :width="75"
+              />
+      </b-col>
     </b-row>
     <ul>
       <li v-for="(song, index) in filteredSongList" :key="index" style="max-width: 220px; margin: 10px; vertical-aling:top">
-        <div class="card">
+        <div class="card" :class="isYoung[song]">
           <h5 class="author">{{song.author}}</h5>
           <img class="card-img-top" :src="song.image_url" :alt="song.author" width="220"  height="220">
           <div class="card-block">
@@ -104,19 +115,24 @@ export default {
       newSong: {
         title: '',
         author: '',
-        image_url: ''
+        image_url: '',
+        young: false
       },
-      songSearch: ''
+      songSearch: '',
+      bigOnly: true
     }
   },
   computed: {
+    isYoung: function (song) {
+      return song.young ? 'young' : ''
+    },
     songList: function () {
       const list = this.songs.map(song => {
         const votes = song.votes ? Object.values(song.votes) : []
         const total = totalVotes(votes, ['song', 'look', 'winner'])
         song.totalSongVotes = total.song
         song.totalLookVotes = total.look
-        song.totalWinner = '🏆'.repeat(totalWinners(votes))
+        song.totalWinner = totalWinners(votes) > 0 ? totalWinners(votes) + ' 🏆' : ' '
         return song
       })
 
@@ -129,7 +145,9 @@ export default {
         })
       }
 
-      return this.songList
+      return this.songList.filter(s => {
+        return this.bigOnly ? (s === undefined || !s.young) : (s !== undefined && s.young)
+      })
     }
   },
   filters: {
@@ -147,6 +165,7 @@ export default {
       this.newSong.title = ''
       this.newSong.author = ''
       this.newSong.image_url = ''
+      this.newSong.young = false
     }
   }
 }

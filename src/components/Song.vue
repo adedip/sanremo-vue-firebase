@@ -141,6 +141,7 @@ export default {
   },
   created () {
     this.nestedVotes = db.ref('/songs/' + this.id + '/votes')
+    this.activeSong = db.ref('/songs/' + this.id)
     this.$bindAsArray('filteredVotes', this.nestedVotes.orderByChild('created_at'))
   },
   mounted () { },
@@ -153,7 +154,15 @@ export default {
     },
     voted () {
       if (this.filteredVotes != null) {
-        return !this._.filter(this.filteredVotes, {'user': this.user}).length > 0
+        if (this.id !== '-L4PpLpX1ZpYjLGbPX47') {
+          let maxVotes = 2
+          if (this.activeSong.young) {
+            maxVotes = 1
+          }
+          return this._.filter(this.filteredVotes, {'user': this.user}).length < maxVotes
+        } else {
+          return false
+        }
       } else {
         return true
       }
