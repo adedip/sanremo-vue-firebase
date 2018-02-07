@@ -125,7 +125,7 @@ export default {
     filteredSongList: function () {
       if (this.songSearch !== '') {
         return this.songList.filter(song => {
-          return song.author.toLowerCase().indexOf(this.songSearch) !== -1 || song.title.toLowerCase().indexOf(this.songSearch) !== -1
+          return song.author.toLowerCase().indexOf(this.songSearch.toLowerCase()) !== -1 || song.title.toLowerCase().indexOf(this.songSearch.toLowerCase()) !== -1
         })
       }
 
