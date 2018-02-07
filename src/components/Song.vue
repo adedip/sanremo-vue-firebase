@@ -84,7 +84,7 @@
                   </tr>
                   <tr>
                     <td colspan="3" style="text-align:left">
-                      {{vote.comment}}
+                      <small style="float:right; color:#999"><i>[{{vote.created_at | toDate}}]</i></small>{{vote.comment}}
                     </td>
                   </tr>
                 </table>
@@ -181,6 +181,12 @@ export default {
       const total = this.filteredVotes.length * 10
       const totalLookVotes = 100 * this._.sumBy(this.filteredVotes, 'look') / total
       return isNaN(totalLookVotes) ? 0 : totalLookVotes
+    }
+  },
+  filters: {
+    toDate: function(timestamp) {
+      let d = new Date(timestamp)
+      return d.toLocaleString()
     }
   },
   methods: {
