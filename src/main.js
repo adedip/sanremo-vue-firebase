@@ -13,7 +13,11 @@ import VueLodash from 'vue-lodash'
 import Vuelidate from 'vuelidate'
 import 'babel-polyfill'
 import ToggleButton from 'vue-js-toggle-button'
+import LoadingPanel from './components/LoadingPanelPlugin'
+import Notify from 'vue-notifyjs'
 
+Vue.use(Notify)
+Vue.use(LoadingPanel)
 Vue.use(ToggleButton)
 Vue.use(VueLodash, lodash)
 Vue.use(Vuelidate)
@@ -31,7 +35,9 @@ firebase.auth().onAuthStateChanged(function (user) {
     app = new Vue({
       el: '#app',
       router,
-      components: { App },
+      components: {
+        App
+      },
       template: '<App/>'
     })
   }

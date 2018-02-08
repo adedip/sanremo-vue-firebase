@@ -23,7 +23,9 @@
     "vue": "^2.5.2",
     "vue-js-toggle-button": "^1.2.2",
     "vue-lodash": "^1.0.4",
+    "vue-notifyjs": "^0.4.1",
     "vue-router": "^3.0.1",
+    "vue-simple-spinner": "^1.2.8",
     "vuefire": "^1.4.5",
     "vuelidate": "^0.6.1"
   },

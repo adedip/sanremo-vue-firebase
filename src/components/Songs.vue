@@ -46,11 +46,9 @@
       <li v-for="(song, index) in filteredSongList" :key="index" style="max-width: 220px; margin: 10px; vertical-aling:top">
         <div class="card" :class="isYoung[song]">
           <h5 class="author">{{song.author}}</h5>
+          <span :style="calcCupStyle(song.totalWinner)" class="cup" v-if="song.totalWinner > 0"><span>{{song.totalWinnerCup}}</span><br>{{song.totalWinner}}</span>
           <img class="card-img-top" :src="song.image_url" :alt="song.author" width="220"  height="220">
           <div class="card-block">
-            <p>
-              {{song.totalWinner}}
-            </p>
             <h4 class="card-title">{{song.title | ellipsed}}</h4>
             <p class="card-text">
               <br>
@@ -122,6 +120,9 @@ export default {
       bigOnly: true
     }
   },
+  mounted () {
+    this.$loadingPanel.load()
+  },
   computed: {
     isYoung: function (song) {
       return song.young ? 'young' : ''
@@ -132,22 +133,26 @@ export default {
         const total = totalVotes(votes, ['song', 'look', 'winner'])
         song.totalSongVotes = total.song
         song.totalLookVotes = total.look
-        song.totalWinner = totalWinners(votes) > 0 ? totalWinners(votes) + ' 🏆' : ' '
+        song.totalWinner = totalWinners(votes) > 0 ? totalWinners(votes) : 0
+        song.totalWinnerCup = totalWinners(votes) > 0 ? '🏆' : ''
         return song
       })
 
+      this.$loadingPanel.hide()
       return this.orderBy(list, this.orderField)
     },
     filteredSongList: function () {
+      let results = this.songList.filter(s => {
+        return this.bigOnly ? (s === undefined || !s.young) : (s !== undefined && s.young)
+      })
+
       if (this.songSearch !== '') {
-        return this.songList.filter(song => {
+        results = results.filter(song => {
           return song.author.toLowerCase().indexOf(this.songSearch.toLowerCase()) !== -1 || song.title.toLowerCase().indexOf(this.songSearch.toLowerCase()) !== -1
         })
       }
 
-      return this.songList.filter(s => {
-        return this.bigOnly ? (s === undefined || !s.young) : (s !== undefined && s.young)
-      })
+      return results
     }
   },
   filters: {
@@ -157,6 +162,12 @@ export default {
     }
   },
   methods: {
+    calcCupStyle: function(val) {
+      let size = 100 + val * 10
+      return {
+        'font-size': size+'%'
+      }
+    },
     orderBy: function(list, field) {
       return this._.chain(list).orderBy(field).reverse().value()
     },
@@ -189,6 +200,21 @@ export default {
 
 .card-img-top{
   height: 220px !important
+}
+
+.cup{
+  position: absolute;
+  bottom: 185px;
+  right: 0px;
+  background: rgba(255,255,255,0.8);
+  padding: 5px;
+  -webkit-border-top-left-radius: 10px;
+  -moz-border-radius-topleft: 10px;
+  border-top-left-radius: 10px;
+}
+
+.cup span{
+  margin-left: 13%;
 }
 
 h1, h2 {

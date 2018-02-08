@@ -13,6 +13,8 @@
         </b-col>
       </b-row>
     </b-container>
+    <loading-panel></loading-panel>
+    <notifications></notifications>
   </div>
 </template>
 
@@ -39,5 +41,4 @@ export default {
 }
 </script>
 
-<style>
-</style>
+<style src="vue-notifyjs/themes/default.css"></style>

@@ -115,7 +115,6 @@ export default {
       id: this.$route.params.id,
       filteredVotes: null,
       nestedVotes: [],
-      submitted: false,
       newVote: {
         song: '',
         look: '',
@@ -145,7 +144,18 @@ export default {
     this.activeSong = db.ref('/songs/' + this.id)
     this.$bindAsArray('filteredVotes', this.nestedVotes.orderByChild('created_at'))
   },
-  mounted () { },
+  mounted () {
+    this.$loadingPanel.load()
+  },
+  watch: {
+    reverseFilteredVotes: function( newVal, old ) {
+      if ( newVal.length > 0 )
+        this.$loadingPanel.hide()
+
+      if(this._.filter(this.filteredVotes, {'user': this.user}).length === 0)
+        this.$loadingPanel.hide()
+    }
+  },
   computed: {
     reverseFilteredVotes () {
       if (this.filteredVotes == null) {
@@ -155,12 +165,12 @@ export default {
     },
     voted () {
       if (this.filteredVotes != null) {
-        if (this.id !== '-L4PpLpX1ZpYjLGbPX47') {
-          let maxVotes = 2
-          if (this.activeSong.young) {
-            maxVotes = 1
-          }
-          return this._.filter(this.filteredVotes, {'user': this.user}).length < maxVotes
+        let time_now = new Date()
+        let user_votes = this._.filter(this.filteredVotes, {'user': this.user})
+        if(user_votes.length === 0){
+          return true
+        }else{
+          return this._.last(user_votes).created_at < (time_now.valueOf() - 21600000)
         }
       } else {
         return true
@@ -194,7 +204,13 @@ export default {
       this.nestedVotes.push(this.newVote)
       this.newVote.title = ''
       this.newVote.author = ''
-      this.submitted = true
+      this.$notify({
+        message: 'Perché Sanremo è Sanremo!',
+        timeout: 2000,
+        horizontalAlign: 'center',
+        verticalAlign: 'top',
+        type: 'success'
+      })
     }
   }
 }
