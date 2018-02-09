@@ -20,8 +20,8 @@
       </div>
       <input type="submit" class="btn btn-primary" value="Add song">
     </form>
-    <br><br>
     <div>
+      <p>ordina per:</p>
       <b-form-group>
         <b-form-radio-group buttons id="orderRadio" v-model="orderField" :options="orderOptions" name="radioOpenions">
         </b-form-radio-group>
@@ -110,8 +110,9 @@ export default {
     return {
       orderField: 'totalSongVotes',
       orderOptions: [
-        { text: 'Classifica canzone', value: 'totalSongVotes' },
-        { text: 'Classifica look', value: 'totalLookVotes' }
+        { text: 'canzone', value: 'totalSongVotes' },
+        { text: 'look', value: 'totalLookVotes' },
+        { text: 'duetto', value: 'totalDuetVotes' }
       ],
       bar: {
         value: 80,
@@ -192,7 +193,13 @@ export default {
   }
 }
 </script>
+<style>
 
+#orderRadio label span span{
+  margin-left: 3px;
+}
+
+</style>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .progress-bar {
