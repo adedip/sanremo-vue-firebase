@@ -26,6 +26,14 @@
               <span class="form-group__message" v-if="!$v.newVote.look.required">Obbligatorio</span><span class="form-group__message" v-if="!$v.newVote.look.numeric">Inserisci un numero.</span>
             </div>
             <div class="form-group">
+              <label for="duetVote">Ospite duetto</label>
+              <input type="number" id="duetVote" class="form-control" v-model.trim.number="newVote.duet" @input="$v.newVote.duet.$touch()">
+            </div>
+            <div v-if="$v.newVote.duet.$error">
+              <span class="form-group__message" v-if="!$v.newVote.duet.between">Voto tra 1 e 10</span>
+              <span class="form-group__message" v-if="!$v.newVote.duet.required">Obbligatorio</span><span class="form-group__message" v-if="!$v.newVote.duet.numeric">Inserisci un numero.</span>
+            </div>
+            <div class="form-group">
               <label for="Comment">Commento</label>
               <textarea type="number" id="Comment" class="form-control" v-model="newVote.comment"></textarea>
             </div>
@@ -65,25 +73,38 @@
                       </div>
                     </b-progress-bar>
         </b-progress>
+        <br>
+        <b-progress
+                    :variant="bar.variant3"
+                    :key="bar.variant3"
+                    :striped="bar.striped">
+                    <b-progress-bar :value="totalDuetVotes">
+                      <div style="position:absolute;padding-left:3px">
+                        Duetto: <strong>{{ (totalDuetVotes / 10).toFixed(2) }}</strong>
+                      </div>
+                    </b-progress-bar>
+        </b-progress>
         <table class="table">
           <thead>
             <tr>
               <th width="40%" style="text-align:center">Utente</th>
-              <th width="30%" style="text-align:center">Canzone</th>
-              <th width="30%" style="text-align:center">Look</th>
+              <th width="20%" style="text-align:center">Canzone</th>
+              <th width="20%" style="text-align:center">Look</th>
+              <th width="20%" style="text-align:center">Duetto</th>
             </tr>
           </thead>
           <tbody>
             <tr v-for="(vote,index) in reverseFilteredVotes" :key="index">
-              <td colspan="3" style="padding: 0">
+              <td colspan="4" style="padding: 0">
                 <table width="100%" style="border: 1px solid #666" class="table striped">
                   <tr style="background-color: #efefef">
                     <td width="40%" style="text-align:center">{{vote.winner ? '🏆' : ''}}{{vote.user.split('@')[0]}}</td>
-                    <td width="30%" style="text-align:center">{{vote.song}}</td>
-                    <td width="30%" style="text-align:center">{{vote.look}}</td>
+                    <td width="20%" style="text-align:center">{{vote.song}}</td>
+                    <td width="20%" style="text-align:center">{{vote.look}}</td>
+                    <td width="20%" style="text-align:center">{{vote.duet}}</td>
                   </tr>
                   <tr>
-                    <td colspan="3" style="text-align:left">
+                    <td colspan="4" style="text-align:left">
                       <small style="float:right; color:#999"><i>[{{vote.created_at | toDate}}]</i></small>{{vote.comment}}
                     </td>
                   </tr>
@@ -109,6 +130,7 @@ export default {
         value: 80,
         variant: 'info',
         variant2: 'warning',
+        variant3: 'success',
         striped: true
       },
       user: this.$firebase.auth().currentUser.email,
@@ -118,6 +140,7 @@ export default {
       newVote: {
         song: '',
         look: '',
+        duet: '',
         comment: '',
         winner: false,
         user: this.$firebase.auth().currentUser.email,
@@ -133,6 +156,11 @@ export default {
         between: between(0, 10)
       },
       look: {
+        required,
+        numeric,
+        between: between(0, 10)
+      },
+      duet: {
         required,
         numeric,
         between: between(0, 10)
@@ -191,6 +219,14 @@ export default {
       const total = this.filteredVotes.length * 10
       const totalLookVotes = 100 * this._.sumBy(this.filteredVotes, 'look') / total
       return isNaN(totalLookVotes) ? 0 : totalLookVotes
+    },
+    totalDuetVotes () {
+      if (this.filteredVotes == null) {
+        return 0
+      }
+      const total = this.filteredVotes.length * 10
+      const totalDuetVotes = 100 * this._.sumBy(this.filteredVotes, 'duet') / total
+      return isNaN(totalDuetVotes) ? 0 : totalDuetVotes
     }
   },
   filters: {
@@ -202,8 +238,9 @@ export default {
   methods: {
     addVote: function () {
       this.nestedVotes.push(this.newVote)
-      this.newVote.title = ''
-      this.newVote.author = ''
+      this.newVote.song = ''
+      this.newVote.look = ''
+      this.newVote.duet = ''
       this.$notify({
         message: 'Perché Sanremo è Sanremo!',
         timeout: 2000,

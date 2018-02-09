@@ -44,14 +44,13 @@
     </b-row>
     <ul>
       <li v-for="(song, index) in filteredSongList" :key="index" style="max-width: 220px; margin: 10px; vertical-aling:top">
-        <div class="card" :class="isYoung[song]">
+        <div class="card" :class="{ 'young': song.young }">
           <h5 class="author">{{song.author}}</h5>
           <span :style="calcCupStyle(song.totalWinner)" class="cup" v-if="song.totalWinner > 0"><span>{{song.totalWinnerCup}}</span><br>{{song.totalWinner}}</span>
           <img class="card-img-top" :src="song.image_url" :alt="song.author" width="220"  height="220">
           <div class="card-block">
             <h4 class="card-title">{{song.title | ellipsed}}</h4>
             <p class="card-text">
-              <br>
               <b-progress
                           :variant="bar.variant"
                           :key="bar.variant"
@@ -62,7 +61,6 @@
                             </div>
                           </b-progress-bar>
               </b-progress>
-              <br>
               <b-progress
                           :variant="bar.variant2"
                           :key="bar.variant2"
@@ -70,6 +68,17 @@
                           <b-progress-bar :value="song.totalLookVotes">
                             <div style="position:absolute;padding-left:3px">
                               Look: <strong>{{ (song.totalLookVotes / 10).toFixed(2) }}</strong>
+                            </div>
+                          </b-progress-bar>
+              </b-progress>
+
+              <b-progress
+                          :variant="bar.variant3"
+                          :key="bar.variant3"
+                          :striped="bar.striped">
+                          <b-progress-bar :value="song.totalDuetVotes">
+                            <div style="position:absolute;padding-left:3px">
+                              Duetto: <strong>{{ (song.totalDuetVotes / 10).toFixed(2) }}</strong>
                             </div>
                           </b-progress-bar>
               </b-progress>
@@ -108,6 +117,7 @@ export default {
         value: 80,
         variant: 'info',
         variant2: 'warning',
+        variant3: 'success',
         striped: false
       },
       newSong: {
@@ -130,9 +140,10 @@ export default {
     songList: function () {
       const list = this.songs.map(song => {
         const votes = song.votes ? Object.values(song.votes) : []
-        const total = totalVotes(votes, ['song', 'look', 'winner'])
+        const total = totalVotes(votes, ['song', 'look', 'duet'])
         song.totalSongVotes = total.song
         song.totalLookVotes = total.look
+        song.totalDuetVotes = total.duet
         song.totalWinner = totalWinners(votes) > 0 ? totalWinners(votes) : 0
         song.totalWinnerCup = totalWinners(votes) > 0 ? '🏆' : ''
         return song
@@ -188,6 +199,14 @@ export default {
   color: #000;
 }
 
+.card.young{
+  background-color: #ECEFF1;
+}
+
+.card-title{
+  padding-top: 5px;
+}
+
 .card-block {
   padding-top: 0;
 }
@@ -202,9 +221,13 @@ export default {
   height: 220px !important
 }
 
+.progress{
+  margin: 5px auto;
+}
+
 .cup{
   position: absolute;
-  bottom: 185px;
+  bottom: 168px;
   right: 0px;
   background: rgba(255,255,255,0.8);
   padding: 5px;
