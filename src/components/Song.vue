@@ -96,6 +96,14 @@
           <tbody>
             <tr v-for="(vote,index) in reverseFilteredVotes" :key="index">
               <td colspan="4" style="padding: 0">
+                <div class="thumbs">
+                  <button class="btn btn-secondary up">
+                    <span>{{vote.up}}</span>👍
+                  </button>
+                  <button class="btn btn-secondary down">
+                    <span>{{vote.down}}</span>👎
+                  </button>
+                </div>
                 <table width="100%" style="border: 1px solid #666" class="table striped">
                   <tr style="background-color: #efefef">
                     <td width="40%" style="text-align:center">{{vote.winner ? '🏆' : ''}}{{vote.user.split('@')[0]}}</td>
@@ -277,6 +285,11 @@ form{
   max-width: 100%;
   width: 300px;
   margin: auto;
+}
+
+.thumbs{
+  float:right;
+  margin-bottom: -10px
 }
 
 h1, h2 {
