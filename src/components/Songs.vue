@@ -46,7 +46,7 @@
       <li v-for="(song, index) in filteredSongList" :key="index" style="max-width: 220px; margin: 10px; vertical-aling:top">
         <div class="card" :class="{ 'young': song.young }">
           <h5 class="author">{{song.author}}</h5>
-          <span :style="calcCupStyle(song.totalWinner)" class="cup" v-if="song.totalWinner > 0"><span>{{song.totalWinnerCup}}</span><br>{{song.totalWinner}}</span>
+          <span :style="calcCupStyle(song.totalWinner)" class="cup" v-if="song.totalWinner > 0"><span class="num">{{song.totalWinner}}</span><span class="image">{{song.totalWinnerCup}}</span></span>
           <img class="card-img-top" :src="song.image_url" :alt="song.author" width="220"  height="220">
           <div class="card-block">
             <h4 class="card-title">{{song.title | ellipsed}}</h4>
@@ -175,7 +175,7 @@ export default {
   },
   methods: {
     calcCupStyle: function(val) {
-      let size = 100 + val * 10
+      let size = 100 + val * 15
       return {
         'font-size': size+'%'
       }
@@ -235,16 +235,25 @@ export default {
 .cup{
   position: absolute;
   bottom: 168px;
-  right: 0px;
-  background: rgba(255,255,255,0.8);
-  padding: 5px;
-  -webkit-border-top-left-radius: 10px;
-  -moz-border-radius-topleft: 10px;
-  border-top-left-radius: 10px;
+  right: 5px;
 }
 
-.cup span{
-  margin-left: 13%;
+.cup span.image{
+  margin-right: 10px;
+}
+
+.cup span.num{
+  color: red;
+  font-size: 12px !important;
+  line-height: 20px;
+  background: #fff;
+  height: 20px;
+  width: 20px;
+  border: 1px solid red;
+  border-radius: 50%;
+  position: absolute;
+  top: -10px;
+  right:0;
 }
 
 h1, h2 {
