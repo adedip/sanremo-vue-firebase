@@ -19,9 +19,9 @@ export let totalVotes = function(votes, fields) {
   if (votes == null) {
     return 0
   }
-  const total = votes.length * 10
   let resutl = {}
   fields.forEach(field => {
+    const total = _.filter(votes, function(o) { return o[field] >= 0}).length * 10
     const tot = 100 * _.sumBy(votes, field) / total
     resutl[field] = isNaN(tot) ? 0 : tot
   })

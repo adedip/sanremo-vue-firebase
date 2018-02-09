@@ -223,7 +223,7 @@ export default {
       if (this.filteredVotes == null) {
         return 0
       }
-      const total = this.filteredVotes.length * 10
+      const total = this._.filter(this.filteredVotes, function(o) { return o.duet >= 0}).length * 10
       const totalDuetVotes = 100 * this._.sumBy(this.filteredVotes, 'duet') / total
       return isNaN(totalDuetVotes) ? 0 : totalDuetVotes
     }
