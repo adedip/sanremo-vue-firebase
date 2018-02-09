@@ -31,7 +31,7 @@
             </div>
             <div v-if="$v.newVote.duet.$error">
               <span class="form-group__message" v-if="!$v.newVote.duet.between">Voto tra 1 e 10</span>
-              <span class="form-group__message" v-if="!$v.newVote.duet.required">Obbligatorio</span><span class="form-group__message" v-if="!$v.newVote.duet.numeric">Inserisci un numero.</span>
+              <span class="form-group__message" v-if="!$v.newVote.duet.numeric">Inserisci un numero.</span>
             </div>
             <div class="form-group">
               <label for="Comment">Commento</label>
@@ -161,7 +161,6 @@ export default {
         between: between(0, 10)
       },
       duet: {
-        required,
         numeric,
         between: between(0, 10)
       }
