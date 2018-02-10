@@ -25,14 +25,14 @@
               <span class="form-group__message" v-if="!$v.newVote.look.between">Voto tra 1 e 10</span>
               <span class="form-group__message" v-if="!$v.newVote.look.required">Obbligatorio</span><span class="form-group__message" v-if="!$v.newVote.look.numeric">Inserisci un numero.</span>
             </div>
-            <div class="form-group">
+            <!-- <div class="form-group">
               <label for="duetVote">Ospite duetto</label>
               <input type="number" id="duetVote" class="form-control" v-model.trim.number="newVote.duet" @input="$v.newVote.duet.$touch()">
             </div>
             <div v-if="$v.newVote.duet.$error">
               <span class="form-group__message" v-if="!$v.newVote.duet.between">Voto tra 1 e 10</span>
               <span class="form-group__message" v-if="!$v.newVote.duet.numeric">Inserisci un numero.</span>
-            </div>
+            </div> -->
             <div class="form-group">
               <label for="Comment">Commento</label>
               <textarea type="number" id="Comment" class="form-control" v-model="newVote.comment"></textarea>
