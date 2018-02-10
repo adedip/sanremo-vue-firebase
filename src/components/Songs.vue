@@ -177,7 +177,7 @@ export default {
     calcCupStyle: function(val) {
       let size = 100 + val * 15
       return {
-        'font-size': size+'%'
+        'font-size': size + '%'
       }
     },
     orderBy: function(list, field) {

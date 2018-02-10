@@ -175,12 +175,14 @@ export default {
     this.$loadingPanel.load()
   },
   watch: {
-    reverseFilteredVotes: function( newVal, old ) {
-      if ( newVal.length > 0 )
+    reverseFilteredVotes: function(newVal, old) {
+      if (newVal.length > 0) {
         this.$loadingPanel.hide()
+      }
 
-      if(this._.filter(this.filteredVotes, {'user': this.user}).length === 0)
+      if (this._.filter(this.filteredVotes, {'user': this.user}).length === 0) {
         this.$loadingPanel.hide()
+      }
     }
   },
   computed: {
@@ -192,12 +194,12 @@ export default {
     },
     voted () {
       if (this.filteredVotes != null) {
-        let time_now = new Date()
-        let user_votes = this._.filter(this.filteredVotes, {'user': this.user})
-        if(user_votes.length === 0){
+        let timeNow = new Date()
+        let userVotes = this._.filter(this.filteredVotes, {'user': this.user})
+        if (userVotes.length === 0) {
           return true
-        }else{
-          return this._.last(user_votes).created_at < (time_now.valueOf() - 21600000)
+        } else {
+          return this._.last(userVotes).created_at < (timeNow.valueOf() - 21600000)
         }
       } else {
         return true
@@ -223,7 +225,7 @@ export default {
       if (this.filteredVotes == null) {
         return 0
       }
-      const total = this._.filter(this.filteredVotes, function(o) { return o.duet >= 0}).length * 10
+      const total = this._.filter(this.filteredVotes, function(o) { return o.duet >= 0 }).length * 10
       const totalDuetVotes = 100 * this._.sumBy(this.filteredVotes, 'duet') / total
       return isNaN(totalDuetVotes) ? 0 : totalDuetVotes
     }
