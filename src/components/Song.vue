@@ -8,7 +8,7 @@
         <div class="jumbotron">
           <h1>{{ $route.params.title }}</h1>
           <h3>{{ $route.params.author }}</h3>
-          <form id="form" v-on:submit.prevent="addVote" v-if="voted">
+          <form id="form" v-on:submit.prevent="addVote" v-if="false"> <!-- voted -->
             <div class="form-group">
               <label for="songVote">Canzone</label>
               <input type="number" id="songVote" class="form-control" v-model.trim.number="newVote.song" @input="$v.newVote.song.$touch()">
@@ -225,7 +225,7 @@ export default {
       if (this.filteredVotes == null) {
         return 0
       }
-      const total = this._.filter(this.filteredVotes, function(o) { return o.duet >= 0 }).length * 10
+      const total = this._.filter(this.filteredVotes, function(o) { return o.duet !== '' && o.duet >= 0 }).length * 10
       const totalDuetVotes = 100 * this._.sumBy(this.filteredVotes, 'duet') / total
       return isNaN(totalDuetVotes) ? 0 : totalDuetVotes
     }
