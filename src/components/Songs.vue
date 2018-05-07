@@ -1,7 +1,7 @@
 <template>
   <div class="hello">
     <!-- FORM TO BE REMOVED -->
-    <form id="form" class="form-inline" v-on:submit.prevent="addSong" style="display:none">
+    <form id="form" class="form-inline" v-on:submit.prevent="addSong">
       <div class="form-group">
         <label for="songTitle">Title:</label>
         <input type="text" id="songTitle" class="form-control" v-model="newSong.title">
@@ -15,8 +15,16 @@
         <input type="text" id="songImage" class="form-control" v-model="newSong.image_url">
       </div>
       <div class="form-group">
+        <label for="songCountry">Country:</label>
+        <input type="text" id="songCountry" class="form-control" v-model="newSong.country">
+      </div>
+      <div class="form-group">
         <label for="songYoung">Giovani:</label>
         <input type="checkbox" id="songYoung" class="form-control" v-model="newSong.young">
+      </div>
+      <div class="form-group">
+        <label for="songEurovision">Eurovision:</label>
+        <input type="checkbox" id="songEurovision" class="form-control" v-model="newSong.eurovision">
       </div>
       <input type="submit" class="btn btn-primary" value="Add song">
     </form>
@@ -72,7 +80,7 @@
                           </b-progress-bar>
               </b-progress>
 
-              <b-progress v-if="!song.young"
+              <!-- <b-progress v-if="!song.young"
                           :variant="bar.variant3"
                           :key="bar.variant3"
                           :striped="bar.striped">
@@ -81,10 +89,10 @@
                               Duetto: <strong>{{ (song.totalDuetVotes / 10).toFixed(2) }}</strong>
                             </div>
                           </b-progress-bar>
-              </b-progress>
+              </b-progress> -->
             </p>
             <router-link :to="{ name: 'Song', params: { id: song['.key'], title: song.title, author: song.author }}">
-              <button class="btn btn-secondary">Vota</button>
+              <button class="btn btn-secondary">Vota <span class="country">{{song.country}}</span></button>
             </router-link>
 
           </div>
@@ -112,7 +120,7 @@ export default {
       orderOptions: [
         { text: 'canzone', value: 'totalSongVotes' },
         { text: 'look', value: 'totalLookVotes' },
-        { text: 'duetto', value: 'totalDuetVotes' }
+        // { text: 'duetto', value: 'totalDuetVotes' }
       ],
       bar: {
         value: 80,
@@ -125,7 +133,9 @@ export default {
         title: '',
         author: '',
         image_url: '',
-        young: false
+        young: false,
+        eurovision: false,
+        country: ''
       },
       songSearch: '',
       bigOnly: true
@@ -137,6 +147,9 @@ export default {
   computed: {
     isYoung: function (song) {
       return song.young ? 'young' : ''
+    },
+    isEurovision: function (song) {
+      return song.eurovision ? 'eurovision' : ''
     },
     songList: function () {
       const list = this.songs.map(song => {
@@ -164,7 +177,9 @@ export default {
         })
       }
 
-      return results
+      return results.filter(s => {
+        return this.eurovision ? (s === undefined || !s.eurovision) : (s !== undefined && s.eurovision)
+      })
     }
   },
   filters: {
@@ -284,5 +299,12 @@ li {
 }
 a {
   color: #42b983;
+}
+
+.country{
+  font-size: 30px;
+  line-height: 20px;
+  float: right;
+  margin: 0 0 0 5px;
 }
 </style>

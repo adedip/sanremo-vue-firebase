@@ -8,7 +8,7 @@
         <div class="jumbotron">
           <h1>{{ $route.params.title }}</h1>
           <h3>{{ $route.params.author }}</h3>
-          <form id="form" v-on:submit.prevent="addVote" v-if="false"> <!-- voted -->
+          <form id="form" v-on:submit.prevent="addVote"> <!-- voted -->
             <div class="form-group">
               <label for="songVote">Canzone</label>
               <input type="number" id="songVote" class="form-control" v-model.trim.number="newVote.song" @input="$v.newVote.song.$touch()">
@@ -74,7 +74,7 @@
                     </b-progress-bar>
         </b-progress>
         <br>
-        <b-progress
+        <!-- <b-progress
                     :variant="bar.variant3"
                     :key="bar.variant3"
                     :striped="bar.striped">
@@ -83,14 +83,14 @@
                         Duetto: <strong>{{ (totalDuetVotes / 10).toFixed(2) }}</strong>
                       </div>
                     </b-progress-bar>
-        </b-progress>
+        </b-progress> -->
         <table class="table">
           <thead>
             <tr>
               <th width="40%" style="text-align:center">Utente</th>
               <th width="20%" style="text-align:center">Canzone</th>
               <th width="20%" style="text-align:center">Look</th>
-              <th width="20%" style="text-align:center">Duetto</th>
+              <!-- <th width="20%" style="text-align:center">Duetto</th> -->
             </tr>
           </thead>
           <tbody>
@@ -101,7 +101,7 @@
                     <td width="40%" style="text-align:center">{{vote.winner ? '🏆' : ''}}{{vote.user.split('@')[0]}}</td>
                     <td width="20%" style="text-align:center">{{vote.song}}</td>
                     <td width="20%" style="text-align:center">{{vote.look}}</td>
-                    <td width="20%" style="text-align:center">{{vote.duet}}</td>
+                    <!-- <td width="20%" style="text-align:center">{{vote.duet}}</td> -->
                   </tr>
                   <tr>
                     <td colspan="4" style="text-align:left">
