@@ -8,7 +8,7 @@
       </b-row>
       <b-row class="text-center">
         <b-col>
-          <img src="./assets/logo.png" style="max-width: 100%">
+          <img src="https://www.thesun.co.uk/wp-content/uploads/2017/12/af-eurovision-topic-desktop.jpg" style="max-width: 100%">
           <router-view></router-view>
         </b-col>
       </b-row>

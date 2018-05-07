@@ -1,7 +1,7 @@
 <template>
   <div class="hello">
     <!-- FORM TO BE REMOVED -->
-    <form id="form" class="form-inline" v-on:submit.prevent="addSong">
+    <form id="form" class="form-inline" v-on:submit.prevent="addSong" style="display:none">
       <div class="form-group">
         <label for="songTitle">Title:</label>
         <input type="text" id="songTitle" class="form-control" v-model="newSong.title">
@@ -36,19 +36,19 @@
       </b-form-group>
     </div>
     <b-row>
-      <b-col offset-lg="4" lg="3">
+      <b-col offset-lg="4" lg="4">
         <b-form-group>
           <!-- <label for="songSearchForm">Cerca</label> -->
           <input id="songSearchForm" class="form-control" v-model.trim="songSearch" placeholder="cerca">
         </b-form-group>
       </b-col>
-      <b-col lg="1">
+      <!-- <b-col lg="1">
         <toggle-button v-model="bigOnly"
                                               :labels="{checked: 'Big', unchecked: 'Giovani'}"
                                               :height="30"
                                               :width="75"
               />
-      </b-col>
+      </b-col> -->
     </b-row>
     <ul>
       <li v-for="(song, index) in filteredSongList" :key="index" style="max-width: 220px; margin: 10px; vertical-aling:top">
