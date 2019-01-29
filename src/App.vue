@@ -6,9 +6,13 @@
         <b-col>{{user.email}}</b-col>
         <b-col><a href="#" v-on:click="logout">logout</a></b-col>
       </b-row>
-      <b-row class="text-center">
+      <b-row class="text-center logo-bg">
         <b-col>
           <img src="./assets/logo.png" style="max-width: 100%">
+        </b-col>
+      </b-row>
+      <b-row class="text-center">
+        <b-col>
           <router-view></router-view>
         </b-col>
       </b-row>
@@ -42,3 +46,18 @@ export default {
 </script>
 
 <style src="vue-notifyjs/themes/default.css"></style>
+<style>
+
+  .logo-bg{
+    background: url("./assets/logo-bg.jpg");
+    max-height: 330px;
+    margin-bottom: 20px;
+  }
+
+  @media screen and (max-width: 400px) {
+    .logo-bg{
+      max-height: 200px;
+    }
+  }
+
+</style>

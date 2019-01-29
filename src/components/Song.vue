@@ -8,7 +8,7 @@
         <div class="jumbotron">
           <h1>{{ $route.params.title }}</h1>
           <h3>{{ $route.params.author }}</h3>
-          <form id="form" v-on:submit.prevent="addVote" v-if="false"> <!-- voted -->
+          <form id="form" v-on:submit.prevent="addVote"> <!-- voted -->
             <div class="form-group">
               <label for="songVote">Canzone</label>
               <input type="number" id="songVote" class="form-control" v-model.trim.number="newVote.song" @input="$v.newVote.song.$touch()">
