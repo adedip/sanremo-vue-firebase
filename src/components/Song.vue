@@ -8,21 +8,21 @@
         <div class="jumbotron">
           <h1>{{ $route.params.title }}</h1>
           <h3>{{ $route.params.author }}</h3>
-          <form id="form" v-on:submit.prevent="addVote"> <!-- voted -->
+          <form id="form" v-on:submit.prevent="addVote" v-if="voted"> <!-- voted -->
             <div class="form-group">
               <label for="songVote">Canzone</label>
-              <input type="number" id="songVote" class="form-control" v-model.trim.number="newVote.song" @input="$v.newVote.song.$touch()">
+              <vue-slider v-model="newVote.song" max=10></vue-slider>
+              <!-- <input type="number" id="songVote" class="form-control" v-model.trim.number="newVote.song" @input="$v.newVote.song.$touch()"> -->
             </div>
             <div v-if="$v.newVote.song.$error">
-              <span class="form-group__message" v-if="!$v.newVote.song.between">Voto tra 1 e 10</span>
               <span class="form-group__message" v-if="!$v.newVote.song.required">Obbligatorio</span><span class="form-group__message" v-if="!$v.newVote.song.numeric">Inserisci un numero.</span>
             </div>
             <div class="form-group">
               <label for="lookVote">Look</label>
-              <input type="number" id="lookVote" class="form-control" v-model.trim.number="newVote.look" @input="$v.newVote.look.$touch()">
+              <vue-slider v-model="newVote.look" max=10></vue-slider>
+              <!-- <input type="number" id="lookVote" class="form-control" v-model.trim.number="newVote.look" @input="$v.newVote.look.$touch()"> -->
             </div>
             <div v-if="$v.newVote.look.$error">
-              <span class="form-group__message" v-if="!$v.newVote.look.between">Voto tra 1 e 10</span>
               <span class="form-group__message" v-if="!$v.newVote.look.required">Obbligatorio</span><span class="form-group__message" v-if="!$v.newVote.look.numeric">Inserisci un numero.</span>
             </div>
             <!-- <div class="form-group">
@@ -30,7 +30,6 @@
               <input type="number" id="duetVote" class="form-control" v-model.trim.number="newVote.duet" @input="$v.newVote.duet.$touch()">
             </div>
             <div v-if="$v.newVote.duet.$error">
-              <span class="form-group__message" v-if="!$v.newVote.duet.between">Voto tra 1 e 10</span>
               <span class="form-group__message" v-if="!$v.newVote.duet.numeric">Inserisci un numero.</span>
             </div> -->
             <div class="form-group">
@@ -74,7 +73,7 @@
                     </b-progress-bar>
         </b-progress>
         <br>
-        <b-progress
+        <b-progress v-if="false"
                     :variant="bar.variant3"
                     :key="bar.variant3"
                     :striped="bar.striped">
@@ -120,9 +119,13 @@
 
 <script>
 import {db} from '../firebase'
-import { required, numeric, between } from 'vuelidate/lib/validators'
+import { required, numeric } from 'vuelidate/lib/validators'
+import vueSlider from 'vue-slider-component'
 
 export default {
+  components: {
+    vueSlider
+  },
   name: 'Song',
   data () {
     return {
@@ -138,8 +141,8 @@ export default {
       filteredVotes: null,
       nestedVotes: [],
       newVote: {
-        song: '',
-        look: '',
+        song: 0,
+        look: 0,
         duet: '',
         comment: '',
         winner: false,
@@ -152,17 +155,14 @@ export default {
     newVote: {
       song: {
         required,
-        numeric,
-        between: between(0, 10)
+        numeric
       },
       look: {
         required,
-        numeric,
-        between: between(0, 10)
+        numeric
       },
       duet: {
-        numeric,
-        between: between(0, 10)
+        numeric
       }
     }
   },
@@ -238,9 +238,14 @@ export default {
   },
   methods: {
     addVote: function () {
+      this.newVote.song = parseInt(this.newVote.song)
+      this.newVote.look = parseInt(this.newVote.look)
+      if (this.newVote.duetto) {
+        this.newVote.duetto = parseInt(this.newVote.duetto)
+      }
       this.nestedVotes.push(this.newVote)
-      this.newVote.song = ''
-      this.newVote.look = ''
+      this.newVote.song = 0
+      this.newVote.look = 0
       this.newVote.duet = ''
       this.$notify({
         message: 'Perché Sanremo è Sanremo!',
@@ -256,6 +261,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.vue-slider-component{
+  margin-top: 25px;
+}
 .progress-bar {
   color: #000;
   height: 30px;
