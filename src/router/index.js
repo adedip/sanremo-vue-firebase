@@ -5,6 +5,7 @@ import Songs from '@/components/Songs'
 import Song from '@/components/Song'
 import Login from '@/components/Login'
 import SignUp from '@/components/SignUp'
+import ResetPassword from '@/components/ResetPassword'
 import firebase from 'firebase'
 
 Vue.use(Router)
@@ -28,6 +29,11 @@ let router = new Router({
       path: '/sign-up',
       name: 'SignUp',
       component: SignUp
+    },
+    {
+      path: '/reset-password',
+      name: 'ResetPassword',
+      component: ResetPassword
     },
     {
       path: '/songs/:id/:title/:author',

@@ -26,6 +26,9 @@
             </b-form-input>
           </b-form-group>
           <b-button type="submit" variant="primary" v-on:click='login'>Entra</b-button>
+          <br>
+          <router-link to='/reset-password'>reset password</router-link>
+          <br>
           <router-link to='/sign-up'>registrati</router-link>
         </b-form>
       </b-col>
