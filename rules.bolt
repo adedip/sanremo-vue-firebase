@@ -9,7 +9,7 @@ path /songs {
 }
 
 path /songs/{songUuid}/votes/{voteUuid} is Vote {
-  read() { true }
+  read() { auth != null }
   write() {  auth != null && newData.child('user_id').val() == auth.uid }
 }
 
