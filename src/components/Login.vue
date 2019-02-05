@@ -61,6 +61,13 @@ export default {
         },
         (err) => {
           console.log(err)
+          this.$notify({
+            message: 'Username o password errate',
+            timeout: 2000,
+            horizontalAlign: 'center',
+            verticalAlign: 'top',
+            type: 'warning'
+          })
         }
       )
     }

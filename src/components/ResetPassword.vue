@@ -46,7 +46,16 @@ export default {
           console.log('email sent')
           this.$router.replace('login')
         })
-        .catch((error) => console.log(error))
+        .catch((error) => {
+          console.log(error)
+          this.$notify({
+            message: 'Email non valida',
+            timeout: 2000,
+            horizontalAlign: 'center',
+            verticalAlign: 'top',
+            type: 'warning'
+          })
+        })
     }
   }
 }

@@ -147,7 +147,7 @@ export default {
         comment: '',
         winner: false,
         user: this.$firebase.auth().currentUser.email,
-        user_id: this.$firebase.auth().currentUser.id,
+        user_id: this.$firebase.auth().currentUser.uid,
         created_at: Date.now()
       }
     }
