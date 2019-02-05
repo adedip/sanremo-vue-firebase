@@ -244,16 +244,29 @@ export default {
       if (this.newVote.duetto) {
         this.newVote.duetto = parseInt(this.newVote.duetto)
       }
-      this.nestedVotes.push(this.newVote)
-      this.newVote.song = 0
-      this.newVote.look = 0
-      this.newVote.duet = ''
-      this.$notify({
-        message: 'Perché Sanremo è Sanremo!',
-        timeout: 2000,
-        horizontalAlign: 'center',
-        verticalAlign: 'top',
-        type: 'success'
+      // this.nestedVotes.push(this.newVote)
+      this.nestedVotes.push().set(this.newVote, (err) => {
+        if (err) {
+          console.log(err)
+          this.$notify({
+            message: 'Errore durante il salvataggio del voto',
+            timeout: 2000,
+            horizontalAlign: 'center',
+            verticalAlign: 'top',
+            type: 'warning'
+          })
+        } else {
+          this.newVote.song = 0
+          this.newVote.look = 0
+          this.newVote.duet = ''
+          this.$notify({
+            message: 'Perché Sanremo è Sanremo!',
+            timeout: 2000,
+            horizontalAlign: 'center',
+            verticalAlign: 'top',
+            type: 'success'
+          })
+        }
       })
     }
   }
