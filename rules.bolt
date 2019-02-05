@@ -1,0 +1,25 @@
+path / {
+  read() { false }
+  write() { false }
+}
+
+path /songs {
+  read() { auth != null }
+  write() { false }
+}
+
+path /songs/{songUuid}/votes/{voteUuid} is Vote {
+  read() { true }
+  write() {  auth != null && newData.child('user_id').val() == auth.uid }
+}
+
+type Vote {
+  comment: String | Null,
+  created_at: Any,
+  duet: String,
+  look: Number,
+  song: Number,
+  user: String,
+  user_id: String,
+  winner: Boolean
+}
