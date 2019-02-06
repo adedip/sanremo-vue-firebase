@@ -15,7 +15,7 @@
                           placeholder="Email">
             </b-form-input>
           </b-form-group>
-          <b-button type="submit" variant="primary" v-on:click='resetPassword'>Reset password</b-button>
+          <b-button type="button" variant="primary" v-on:click='resetPassword'>Reset password</b-button>
           <br>
           <router-link to='/login'>vai al login</router-link>
         </b-form>

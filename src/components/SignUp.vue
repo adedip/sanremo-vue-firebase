@@ -25,7 +25,7 @@
                           placeholder="Password">
             </b-form-input>
           </b-form-group>
-          <b-button type="submit" variant="primary" v-on:click='signUp'>Registrati</b-button>
+          <b-button type="button" variant="primary" v-on:click='signUp'>Registrati</b-button>
           <router-link to='/login'>vai al login</router-link>
         </b-form>
       </b-col>

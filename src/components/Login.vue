@@ -25,7 +25,7 @@
                           placeholder="Password">
             </b-form-input>
           </b-form-group>
-          <b-button type="submit" variant="primary" v-on:click='login'>Entra</b-button>
+          <b-button type="button" variant="primary" v-on:click='login'>Entra</b-button>
           <br>
           <router-link to='/reset-password'>reset password</router-link>
           <br>
@@ -53,23 +53,21 @@ export default {
   },
   methods: {
     login: function() {
-      firebase.auth().signInWithEmailAndPassword(this.email, this.password).then(
-        (user) => {
-          this.user = user
-          this.isLogged = true
-          this.$router.replace('songs')
-        },
-        (err) => {
-          console.log(err)
-          this.$notify({
-            message: 'Username o password errate',
-            timeout: 2000,
-            horizontalAlign: 'center',
-            verticalAlign: 'top',
-            type: 'warning'
-          })
-        }
-      )
+      firebase.auth().signInWithEmailAndPassword(this.email, this.password)
+      .then(user => {
+        this.user = user
+        this.isLogged = true
+        this.$router.replace('songs')
+      }).catch(err => {
+        console.log(err)
+        this.$notify({
+          message: 'Username o password errate',
+          timeout: 2000,
+          horizontalAlign: 'center',
+          verticalAlign: 'top',
+          type: 'warning'
+        })
+      })
     }
   }
 }
