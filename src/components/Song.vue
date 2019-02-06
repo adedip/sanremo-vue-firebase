@@ -5,47 +5,50 @@
     <br>
     <b-row>
       <b-col lg="8" offset-lg="2">
+        <!-- <div class="jumbotron" :style="'background: url('+$route.params.image+'); background-size: cover'"> -->
         <div class="jumbotron">
-          <h1>{{ $route.params.title }}</h1>
-          <h3>{{ $route.params.author }}</h3>
-          <form id="form" v-on:submit.prevent="addVote" v-if="voted"> <!-- voted -->
-            <div class="form-group">
-              <label for="songVote">Canzone</label>
-              <vue-slider v-model="newVote.song" :max=10></vue-slider>
-              <!-- <input type="number" id="songVote" class="form-control" v-model.trim.number="newVote.song" @input="$v.newVote.song.$touch()"> -->
-            </div>
-            <div v-if="$v.newVote.song.$error">
-              <span class="form-group__message" v-if="!$v.newVote.song.required">Obbligatorio</span><span class="form-group__message" v-if="!$v.newVote.song.numeric">Inserisci un numero.</span>
-            </div>
-            <div class="form-group">
-              <label for="lookVote">Look</label>
-              <vue-slider v-model="newVote.look" :max=10></vue-slider>
-              <!-- <input type="number" id="lookVote" class="form-control" v-model.trim.number="newVote.look" @input="$v.newVote.look.$touch()"> -->
-            </div>
-            <div v-if="$v.newVote.look.$error">
-              <span class="form-group__message" v-if="!$v.newVote.look.required">Obbligatorio</span><span class="form-group__message" v-if="!$v.newVote.look.numeric">Inserisci un numero.</span>
-            </div>
-            <!-- <div class="form-group">
-              <label for="duetVote">Ospite duetto</label>
-              <input type="number" id="duetVote" class="form-control" v-model.trim.number="newVote.duet" @input="$v.newVote.duet.$touch()">
-            </div>
-            <div v-if="$v.newVote.duet.$error">
-              <span class="form-group__message" v-if="!$v.newVote.duet.numeric">Inserisci un numero.</span>
-            </div> -->
-            <div class="form-group">
-              <label for="Comment">Commento</label>
-              <textarea type="number" id="Comment" class="form-control" v-model="newVote.comment"></textarea>
-            </div>
-            <br>
-            <span>Per me vince <toggle-button v-model="newVote.winner"
-                                              :labels="{checked: 'Si', unchecked: 'No'}"
-                                              :height="30"
-                                              :width="55"
-              />
-            </span>
-            <br>
-            <input v-bind:disabled="$v.newVote.$invalid" type="submit" class="btn btn-primary" style="margin-top:10px" value="Vota!">
-          </form>
+          <div class="vote-container">
+            <h1>{{ $route.params.title }}</h1>
+            <h3>{{ $route.params.author }}</h3>
+            <form id="form" v-on:submit.prevent="addVote" v-if="voted"> <!-- voted -->
+              <div class="form-group">
+                <label for="songVote">Canzone</label>
+                <vue-slider v-model="newVote.song" :max=10 :dot-size=25></vue-slider>
+                <!-- <input type="number" id="songVote" class="form-control" v-model.trim.number="newVote.song" @input="$v.newVote.song.$touch()"> -->
+              </div>
+              <div v-if="$v.newVote.song.$error">
+                <span class="form-group__message" v-if="!$v.newVote.song.required">Obbligatorio</span><span class="form-group__message" v-if="!$v.newVote.song.numeric">Inserisci un numero.</span>
+              </div>
+              <div class="form-group">
+                <label for="lookVote">Look</label>
+                <vue-slider v-model="newVote.look" :max=10 :dot-size=25></vue-slider>
+                <!-- <input type="number" id="lookVote" class="form-control" v-model.trim.number="newVote.look" @input="$v.newVote.look.$touch()"> -->
+              </div>
+              <div v-if="$v.newVote.look.$error">
+                <span class="form-group__message" v-if="!$v.newVote.look.required">Obbligatorio</span><span class="form-group__message" v-if="!$v.newVote.look.numeric">Inserisci un numero.</span>
+              </div>
+              <!-- <div class="form-group">
+                <label for="duetVote">Ospite duetto</label>
+                <input type="number" id="duetVote" class="form-control" v-model.trim.number="newVote.duet" @input="$v.newVote.duet.$touch()">
+              </div>
+              <div v-if="$v.newVote.duet.$error">
+                <span class="form-group__message" v-if="!$v.newVote.duet.numeric">Inserisci un numero.</span>
+              </div> -->
+              <div class="form-group">
+                <label for="Comment">Commento</label>
+                <textarea type="number" id="Comment" class="form-control" v-model="newVote.comment"></textarea>
+              </div>
+              <br>
+              <span>Per me vince <toggle-button v-model="newVote.winner"
+                                                :labels="{checked: 'Si', unchecked: 'No'}"
+                                                :height="30"
+                                                :width="55"
+                />
+              </span>
+              <br>
+              <input v-bind:disabled="$v.newVote.$invalid" type="submit" class="btn btn-primary" style="margin-top:10px" value="Vota!">
+            </form>
+          </div>
         </div>
       </b-col>
     </b-row>
@@ -275,9 +278,19 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.vote-container{
+  background: rgba(250,250,250,0.8);
+  border-radius: 20px;
+  padding: 20px;
+  max-width: 100%;
+  width: 400px;
+  margin: auto;
+}
+
 .vue-slider-component{
   margin-top: 25px;
 }
+
 .progress-bar {
   color: #000;
   height: 30px;
