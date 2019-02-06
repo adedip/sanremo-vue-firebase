@@ -103,7 +103,7 @@
                     <td width="20%" style="text-align:center">{{vote.duet}}</td>
                   </tr>
                   <tr>
-                    <td colspan="4" style="text-align:left">
+                    <td colspan="4" style="text-align:left;word-break:break-word;">
                       <small style="float:right; color:#999"><i>[{{vote.created_at | toDate}}]</i></small>{{vote.comment}}
                     </td>
                   </tr>
