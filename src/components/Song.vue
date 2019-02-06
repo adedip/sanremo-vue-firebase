@@ -11,7 +11,7 @@
           <form id="form" v-on:submit.prevent="addVote" v-if="voted"> <!-- voted -->
             <div class="form-group">
               <label for="songVote">Canzone</label>
-              <vue-slider v-model="newVote.song" max=10></vue-slider>
+              <vue-slider v-model="newVote.song" :max=10></vue-slider>
               <!-- <input type="number" id="songVote" class="form-control" v-model.trim.number="newVote.song" @input="$v.newVote.song.$touch()"> -->
             </div>
             <div v-if="$v.newVote.song.$error">
@@ -19,7 +19,7 @@
             </div>
             <div class="form-group">
               <label for="lookVote">Look</label>
-              <vue-slider v-model="newVote.look" max=10></vue-slider>
+              <vue-slider v-model="newVote.look" :max=10></vue-slider>
               <!-- <input type="number" id="lookVote" class="form-control" v-model.trim.number="newVote.look" @input="$v.newVote.look.$touch()"> -->
             </div>
             <div v-if="$v.newVote.look.$error">
