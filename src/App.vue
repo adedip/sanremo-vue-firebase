@@ -7,9 +7,6 @@
         <b-col><a href="#" v-on:click="logout">logout</a></b-col>
       </b-row>
       <b-row class="text-center logo-bg">
-        <b-col>
-          <img src="./assets/logo.png" style="max-width: 100%">
-        </b-col>
       </b-row>
       <b-row class="text-center">
         <b-col>
@@ -49,8 +46,11 @@ export default {
 <style>
 
   .logo-bg{
-    background: url("./assets/logo-bg.jpg");
-    max-height: 330px;
+    background: url("./assets/sanremo-bg.png");
+    background-position: center center;
+    background-size: cover;
+    height: 330px;
+    display: block;
     margin-bottom: 20px;
   }
 
