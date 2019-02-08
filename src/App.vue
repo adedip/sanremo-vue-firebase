@@ -36,9 +36,9 @@ export default {
     // subsequent calls to getToken will return from cache.
     messaging.getToken().then(function(currentToken) {
       if (currentToken) {
-
-        sendTokenToServer(currentToken)
-        updateUIForPushEnabled(currentToken)
+        debugger
+        // sendTokenToServer(currentToken)
+        // updateUIForPushEnabled(currentToken)
       } else {
         // Show permission request.
         console.log('No Instance ID token available. Request permission to generate one.')

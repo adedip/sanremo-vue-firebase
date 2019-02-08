@@ -1,6 +1,10 @@
 import firebase from 'firebase'
 import _ from 'lodash'
 
+// messaging keys
+// BDiSUfjLUE0mZMkRkMd7PjI8QoXvDJpUpUVPU9GMBGuX3DeK1I43XEcUhZcPbDYI8NP0BigXu0NQ1GgMDUoeOxc
+// wfEsgvBQNF-LaXhNYnkST72XVOP-DjGt0lUPMXdIoKg (private key)
+
 var config = {
   apiKey: 'AIzaSyBuI4CEFmBz_UtDqnUqiLoRLjNaZsmIQrk',
   authDomain: 'sanremo-fae7a.firebaseapp.com',
