@@ -27,13 +27,15 @@
               <div v-if="$v.newVote.look.$error">
                 <span class="form-group__message" v-if="!$v.newVote.look.required">Obbligatorio</span><span class="form-group__message" v-if="!$v.newVote.look.numeric">Inserisci un numero.</span>
               </div>
-              <!-- <div class="form-group">
+              <div class="form-group">
                 <label for="duetVote">Ospite duetto</label>
-                <input type="number" id="duetVote" class="form-control" v-model.trim.number="newVote.duet" @input="$v.newVote.duet.$touch()">
+                <vue-slider v-model="newVote.duet" :max=10 :dot-size=25></vue-slider>
+                <!-- <input type="number" id="duetVote" class="form-control" v-model.trim.number="newVote.duet" @input="$v.newVote.duet.$touch()"> -->
               </div>
               <div v-if="$v.newVote.duet.$error">
                 <span class="form-group__message" v-if="!$v.newVote.duet.numeric">Inserisci un numero.</span>
-              </div> -->
+              </div>
+              <br>
               <div class="form-group">
                 <label for="Comment">Commento</label>
                 <textarea type="number" id="Comment" class="form-control" v-model="newVote.comment"></textarea>
@@ -76,7 +78,7 @@
                     </b-progress-bar>
         </b-progress>
         <br>
-        <b-progress v-if="false"
+        <b-progress
                     :variant="bar.variant3"
                     :key="bar.variant3"
                     :striped="bar.striped">
@@ -146,7 +148,7 @@ export default {
       newVote: {
         song: 0,
         look: 0,
-        duet: '',
+        duet: 0,
         comment: '',
         winner: false,
         user: this.$firebase.auth().currentUser.email,
@@ -261,7 +263,8 @@ export default {
         } else {
           this.newVote.song = 0
           this.newVote.look = 0
-          this.newVote.duet = ''
+          this.newVote.duet = 0
+          this.newVote.comment = ''
           this.$notify({
             message: 'Perché Sanremo è Sanremo!',
             timeout: 2000,

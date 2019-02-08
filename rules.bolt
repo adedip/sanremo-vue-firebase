@@ -16,7 +16,7 @@ path /songs/{songUuid}/votes/{voteUuid} is Vote {
 type Vote {
   comment: String | Null,
   created_at: Any,
-  duet: String,
+  duet: Number,
   look: Number,
   song: Number,
   user: String,

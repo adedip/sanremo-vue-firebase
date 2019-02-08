@@ -72,7 +72,7 @@
                           </b-progress-bar>
               </b-progress>
 
-              <b-progress v-if="!song.young && false"
+              <b-progress v-if="!song.young"
                           :variant="bar.variant3"
                           :key="bar.variant3"
                           :striped="bar.striped">
