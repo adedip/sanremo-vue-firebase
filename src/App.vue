@@ -36,6 +36,7 @@ export default {
     // subsequent calls to getToken will return from cache.
     messaging.getToken().then(function(currentToken) {
       if (currentToken) {
+
         sendTokenToServer(currentToken)
         updateUIForPushEnabled(currentToken)
       } else {
@@ -49,13 +50,13 @@ export default {
           console.log('Unable to get permission to notify.', err)
         })
         // Show permission UI.
-        updateUIForPushPermissionRequired()
-        setTokenSentToServer(false)
+        // updateUIForPushPermissionRequired()
+        // setTokenSentToServer(false)
       }
     }).catch(function(err) {
       console.log('An error occurred while retrieving token. ', err)
-      showToken('Error retrieving Instance ID token. ', err)
-      setTokenSentToServer(false)
+      // showToken('Error retrieving Instance ID token. ', err)
+      // setTokenSentToServer(false)
     });
   },
   methods: {

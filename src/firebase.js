@@ -13,9 +13,9 @@ var config = {
 let firebaseApp = firebase.initializeApp(config)
 let firebaseDB = firebaseApp.database()
 
-const messaging = firebase.messaging()
-messaging.usePublicVapidKey("BDiSUfjLUE0mZMkRkMd7PjI8QoXvDJpUpUVPU9GMBGuX3DeK1I43XEcUhZcPbDYI8NP0BigXu0NQ1GgMDUoeOxc")
-export let messaging = messaging
+const fb_messaging = firebase.messaging()
+fb_messaging.usePublicVapidKey("BDiSUfjLUE0mZMkRkMd7PjI8QoXvDJpUpUVPU9GMBGuX3DeK1I43XEcUhZcPbDYI8NP0BigXu0NQ1GgMDUoeOxc")
+export let messaging = fb_messaging
 export let db = firebaseDB
 export let songsRef = firebaseDB.ref('songs')
 export let votessRef = firebaseDB.ref('votes')
