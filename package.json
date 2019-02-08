@@ -13,6 +13,7 @@
     "lint": "eslint --ext .js,.vue src test/unit test/e2e/specs",
     "build": "node build/build.js",
     "deploy": "firebase deploy",
+    "build:deploy": "node build/build.js; firebase deploy",
     "rules": "firebase deploy --only database"
   },
   "dependencies": {
