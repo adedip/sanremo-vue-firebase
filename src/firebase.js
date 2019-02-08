@@ -19,14 +19,15 @@ export let totalVotes = function(votes, fields) {
   if (votes == null) {
     return 0
   }
-  let resutl = {}
+  let result = {}
   fields.forEach(field => {
-    const total = _.filter(votes, function(o) { return o[field] !== '' && o[field] >= 0 }).length * 10
-    const tot = 100 * _.sumBy(votes, field) / total
-    resutl[field] = isNaN(tot) ? 0 : tot
+    const valid_votes = _.filter(votes, function(o) { return o[field] !== '' && o[field] >= 0 })
+    const total = valid_votes.length * 10
+    const tot = 100 * _.sumBy(valid_votes, field) / total
+    result[field] = isNaN(tot) ? 0 : tot
   })
 
-  return resutl
+  return result
 }
 
 export let totalWinners = function(votes) {
