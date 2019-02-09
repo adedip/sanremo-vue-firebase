@@ -10,6 +10,16 @@
           <div class="vote-container">
             <h1>{{ $route.params.title }}</h1>
             <h3>{{ $route.params.author }}</h3>
+            <table id="overall">
+              <tr>
+                <td align="right">
+                  {{totalYesVotes}} 👍
+                </td>
+                <td align="left">
+                  {{totalNoVotes}} 👎
+                </td>
+              </tr>
+            </table>
             <form id="form" v-on:submit.prevent="addVote" v-if="voted"> <!-- voted -->
               <div class="form-group">
                 <label for="songVote">Canzone</label>
@@ -27,7 +37,7 @@
               <div v-if="$v.newVote.look.$error">
                 <span class="form-group__message" v-if="!$v.newVote.look.required">Obbligatorio</span><span class="form-group__message" v-if="!$v.newVote.look.numeric">Inserisci un numero.</span>
               </div>
-              <div class="form-group">
+              <div class="form-group" v-if="duettable">
                 <label for="duetVote">Ospite duetto</label>
                 <vue-slider v-model="newVote.duet" :max=10 :dot-size=25></vue-slider>
                 <!-- <input type="number" id="duetVote" class="form-control" v-model.trim.number="newVote.duet" @input="$v.newVote.duet.$touch()"> -->
@@ -35,6 +45,14 @@
               <div v-if="$v.newVote.duet.$error">
                 <span class="form-group__message" v-if="!$v.newVote.duet.numeric">Inserisci un numero.</span>
               </div>
+              <p>Valutazione complessiva:</p>
+              <b-form-group>
+                <b-form-radio-group buttons
+                                    button-variant="outline-info"
+                                    size="md"
+                                    id="overallRadio" v-model="newVote.overall" :options="overall_options" name="radioOpenions">
+                </b-form-radio-group>
+              </b-form-group>
               <br>
               <div class="form-group">
                 <label for="Comment">Commento</label>
@@ -102,7 +120,7 @@
               <td colspan="4" style="padding: 0">
                 <table width="100%" style="border: 1px solid #666" class="table striped">
                   <tr style="background-color: #efefef">
-                    <td width="40%" style="text-align:center">{{vote.winner ? '🏆' : ''}}{{vote.user.split('@')[0]}}</td>
+                    <td width="40%" style="text-align:center">{{vote.winner ? '🏆' : ''}} {{vote.user.split('@')[0]}} {{overallIcon(vote.overall)}}</td>
                     <td width="20%" style="text-align:center">{{vote.song}}</td>
                     <td width="20%" style="text-align:center">{{vote.look}}</td>
                     <td width="20%" style="text-align:center">{{vote.duet}}</td>
@@ -141,6 +159,13 @@ export default {
         variant3: 'success',
         striped: true
       },
+      duettable: false,
+      selected: 'radio1',
+      overall_options: [
+        { text: 'SI!', value: 'si' },
+        { text: 'NO', value: 'no' },
+        { text: 'mah...', value: 'mah' }
+      ],
       user: this.$firebase.auth().currentUser.email,
       id: this.$route.params.id,
       filteredVotes: null,
@@ -149,6 +174,7 @@ export default {
         song: 0,
         look: 0,
         duet: 0,
+        overall: 'mah',
         comment: '',
         winner: false,
         user: this.$firebase.auth().currentUser.email,
@@ -211,6 +237,26 @@ export default {
         return true
       }
     },
+    totalYesVotes () {
+      if (this.filteredVotes == null) {
+        return 0
+      }
+      let c =  _.countBy(this.filteredVotes, function (rec) {
+                        return rec.overall == 'si';
+                      });
+      let yes_votes = c["true"] == undefined ? 0 : c["true"]
+      return yes_votes
+    },
+    totalNoVotes () {
+      if (this.filteredVotes == null) {
+        return 0
+      }
+      let c = _.countBy(this.filteredVotes, function (rec) {
+                        return rec.overall == 'no';
+                      });
+      let no_votes = c["true"] == undefined ? 0 : c["true"]
+      return no_votes
+    },
     totalSongVotes () {
       if (this.filteredVotes == null) {
         return 0
@@ -244,6 +290,15 @@ export default {
     }
   },
   methods: {
+    overallIcon: function (vote) {
+      let icon = ''
+      if (vote == "si"){
+        icon = '👍'
+      } else if (vote == 'no'){
+        icon = '👎'
+      }
+      return icon
+    },
     addVote: function () {
       this.newVote.song = parseInt(this.newVote.song)
       this.newVote.look = parseInt(this.newVote.look)
@@ -282,6 +337,15 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.btn-outline-info span{
+  margin-left: 10px;
+}
+
+#overall{
+  width: 100%;
+  font-size: 25px;
+}
+
 .vote-container{
   background: rgba(250,250,250,0.8);
   border-radius: 20px;

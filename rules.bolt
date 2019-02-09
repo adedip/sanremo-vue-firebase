@@ -19,6 +19,7 @@ type Vote {
   duet: Number,
   look: Number,
   song: Number,
+  overall: String,
   user: String,
   user_id: String,
   winner: Boolean

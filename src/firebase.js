@@ -40,3 +40,25 @@ export let totalWinners = function(votes) {
   })
   return total
 }
+
+export let totalYes = function(votes) {
+  if (votes == null) {
+    return 0
+  }
+  let c =  _.countBy(votes, function (rec) {
+                    return rec.overall == 'si';
+                  });
+  let yes_votes = c["true"] == undefined ? 0 : c["true"]
+  return yes_votes
+}
+
+export let totalNo = function(votes) {
+  if (votes == null) {
+    return 0
+  }
+  let c = _.countBy(votes, function (rec) {
+                    return rec.overall == 'no';
+                  });
+  let no_votes = c["true"] == undefined ? 0 : c["true"]
+  return no_votes
+}

@@ -21,9 +21,9 @@ Vue.use(LoadingPanel)
 Vue.use(ToggleButton)
 Vue.use(VueLodash, lodash)
 Vue.use(Vuelidate)
-
 Vue.use(BootstrapVue)
 Vue.use(VueFire)
+
 Vue.config.productionTip = false
 Vue.prototype.$firebase = firebase
 
