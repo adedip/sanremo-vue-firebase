@@ -46,8 +46,8 @@
       <li v-for="(song, index) in filteredSongList" :key="index" style="max-width: 220px; margin: 10px; vertical-aling:top">
         <div class="card" :class="{ 'young': song.young }">
           <h5 class="author">{{song.author}}</h5>
-          <span class="thumbs" v-if="song.totalYes > 0"><span class="num">{{song.totalYes}}</span><span class="image">👍</span></span>
-          <span class="thumbs" v-if="song.totalNo > 0"><span class="num">{{song.totalNo}}</span><span class="image">👎</span></span>
+          <span class="thumbs thumbs1" v-if="song.totalYes > 0"><span class="num">{{song.totalYes}}</span><span class="image">👍</span></span>
+          <span class="thumbs thumbs2" v-if="song.totalNo > 0"><span class="num">{{song.totalNo}}</span><span class="image">👎</span></span>
           <span :style="calcCupStyle(song.totalWinner)" class="cup" v-if="song.totalWinner > 0"><span class="num">{{song.totalWinner}}</span><span class="image">{{song.totalWinnerCup}}</span></span>
           <img class="card-img-top" :src="song.image_url" :alt="song.author" width="220"  height="220">
           <div class="card-block">
@@ -242,10 +242,16 @@ export default {
   right: 5px;
 }
 
-.thumbs{
+.thumbs1{
   position: absolute;
   bottom: 168px;
   left: 5px;
+}
+
+.thumbs2{
+  position: absolute;
+  bottom: 168px;
+  left: 40px;
 }
 
 .cup span.image, .thumbs span.image{
