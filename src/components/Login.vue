@@ -41,7 +41,9 @@
 </template>
 
 <script>
-import firebase from 'firebase'
+import firebase from 'firebase/app'
+import 'firebase/database'
+import 'firebase/auth'
 
 export default {
   name: 'login',
@@ -54,20 +56,20 @@ export default {
   methods: {
     login: function() {
       firebase.auth().signInWithEmailAndPassword(this.email, this.password)
-      .then(user => {
-        this.user = user
-        this.isLogged = true
-        this.$router.replace('songs')
-      }).catch(err => {
-        console.log(err)
-        this.$notify({
-          message: 'Username o password errate',
-          timeout: 2000,
-          horizontalAlign: 'center',
-          verticalAlign: 'top',
-          type: 'warning'
+        .then(user => {
+          this.user = user
+          this.isLogged = true
+          this.$router.replace('songs')
+        }).catch(err => {
+          console.log(err)
+          this.$notify({
+            message: 'Username o password errate',
+            timeout: 2000,
+            horizontalAlign: 'center',
+            verticalAlign: 'top',
+            type: 'warning'
+          })
         })
-      })
     }
   }
 }

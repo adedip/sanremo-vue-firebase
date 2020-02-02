@@ -16,26 +16,26 @@
 </template>
 
 <script>
-  import Spinner from 'vue-simple-spinner'
-  export default {
-    data () {
-      return {
-        panel: this.$loadingPanel.panel
+import Spinner from 'vue-simple-spinner'
+export default {
+  data () {
+    return {
+      panel: this.$loadingPanel.panel
+    }
+  },
+  components: {
+    'vue-simple-spinner': Spinner
+  },
+  computed: {
+    panelSet () {
+      if (this.panel.length > 0) {
+        return this.panel[0]
       }
-    },
-    components: {
-      'vue-simple-spinner': Spinner
-    },
-    computed: {
-      panelSet () {
-        if (this.panel.length > 0) {
-          return this.panel[0]
-        }
 
-        return false
-      }
+      return false
     }
   }
+}
 </script>
 
 <style scoped>

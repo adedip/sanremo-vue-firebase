@@ -1,7 +1,7 @@
 <template>
   <div class="hello">
     <!-- FORM TO BE REMOVED -->
-    <form id="form" class="form-inline" v-on:submit.prevent="addSong" style="display: none">
+    <form id="form" class="form-inline" v-on:submit.prevent="addSong">
       <div class="form-group">
         <label for="songTitle">Title:</label>
         <input type="text" id="songTitle" class="form-control" v-model="newSong.title">

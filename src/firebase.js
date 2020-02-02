@@ -1,4 +1,6 @@
-import firebase from 'firebase'
+import firebase from 'firebase/app'
+import 'firebase/database'
+import 'firebase/auth'
 import _ from 'lodash'
 
 var config = {
@@ -21,9 +23,9 @@ export let totalVotes = function(votes, fields) {
   }
   let result = {}
   fields.forEach(field => {
-    const valid_votes = _.filter(votes, function(o) { return o[field] !== '' && o[field] >= 0 })
-    const total = valid_votes.length * 10
-    const tot = 100 * _.sumBy(valid_votes, field) / total
+    const validVotes = _.filter(votes, function(o) { return o[field] !== '' && o[field] >= 0 })
+    const total = validVotes.length * 10
+    const tot = 100 * _.sumBy(validVotes, field) / total
     result[field] = isNaN(tot) ? 0 : tot
   })
 
