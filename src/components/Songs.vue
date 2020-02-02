@@ -1,7 +1,7 @@
 <template>
   <div class="hello">
     <!-- FORM TO BE REMOVED -->
-    <form id="form" class="form-inline" v-on:submit.prevent="addSong">
+    <form id="form" class="form-inline" v-on:submit.prevent="addSong" style="display:none">
       <div class="form-group">
         <label for="songTitle">Title:</label>
         <input type="text" id="songTitle" class="form-control" v-model="newSong.title">
@@ -72,7 +72,7 @@
                           </b-progress-bar>
               </b-progress>
 
-              <b-progress v-if="!song.young"
+              <b-progress v-if="!song.young && false"
                           :variant="bar.variant3"
                           :key="bar.variant3"
                           :striped="bar.striped">

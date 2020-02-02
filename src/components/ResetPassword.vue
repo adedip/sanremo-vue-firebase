@@ -43,7 +43,7 @@ export default {
   methods: {
     resetPassword: function() {
       var auth = firebase.auth()
-      return auth.sendPasswordResetEmail(this.email)
+      return auth.sendPasswordResetEmail(this.email.trim())
         .then(() => {
           console.log('email sent')
           this.$router.replace('login')

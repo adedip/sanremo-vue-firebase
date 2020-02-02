@@ -27,7 +27,7 @@
               <div v-if="$v.newVote.look.$error">
                 <span class="form-group__message" v-if="!$v.newVote.look.required">Obbligatorio</span><span class="form-group__message" v-if="!$v.newVote.look.numeric">Inserisci un numero.</span>
               </div>
-              <div class="form-group">
+              <div class="form-group" v-if="false">
                 <label for="duetVote">Ospite duetto</label>
                 <vue-slider v-model="newVote.duet" :max=10 :dot-size=25></vue-slider>
                 <!-- <input type="number" id="duetVote" class="form-control" v-model.trim.number="newVote.duet" @input="$v.newVote.duet.$touch()"> -->
