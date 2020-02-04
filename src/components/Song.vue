@@ -27,7 +27,7 @@
               <div v-if="$v.newVote.look.$error">
                 <span class="form-group__message" v-if="!$v.newVote.look.required">Obbligatorio</span><span class="form-group__message" v-if="!$v.newVote.look.numeric">Inserisci un numero.</span>
               </div>
-              <div class="form-group">
+              <div class="form-group" v-if="false">
                 <label for="duetVote">Ospite duetto</label>
                 <vue-slider v-model="newVote.duet" :max=10 :dot-size=25></vue-slider>
                 <!-- <input type="number" id="duetVote" class="form-control" v-model.trim.number="newVote.duet" @input="$v.newVote.duet.$touch()"> -->
@@ -81,7 +81,7 @@
         <b-progress
                     :variant="bar.variant3"
                     :key="bar.variant3"
-                    :striped="bar.striped">
+                    :striped="bar.striped" v-if="false">
                     <b-progress-bar :value="totalDuetVotes">
                       <div style="position:absolute;padding-left:3px">
                         Duetto: <strong>{{ (totalDuetVotes / 10).toFixed(2) }}</strong>
@@ -94,7 +94,7 @@
               <th width="40%" style="text-align:center">Utente</th>
               <th width="20%" style="text-align:center">Canzone</th>
               <th width="20%" style="text-align:center">Look</th>
-              <th width="20%" style="text-align:center">Duetto</th>
+              <th width="20%" style="text-align:center" v-if="false">Duetto</th>
             </tr>
           </thead>
           <tbody>
@@ -105,7 +105,7 @@
                     <td width="40%" style="text-align:center">{{vote.winner ? '🏆' : ''}}{{vote.user.split('@')[0]}}</td>
                     <td width="20%" style="text-align:center">{{vote.song}}</td>
                     <td width="20%" style="text-align:center">{{vote.look}}</td>
-                    <td width="20%" style="text-align:center">{{vote.duet}}</td>
+                    <td width="20%" style="text-align:center" v-if="false">{{vote.duet}}</td>
                   </tr>
                   <tr>
                     <td colspan="4" style="text-align:left;word-break:break-word;">
@@ -231,9 +231,9 @@ export default {
       if (this.filteredVotes == null) {
         return 0
       }
-      const duet_votes = this._.filter(this.filteredVotes, function(o) { return o.duet !== '' && o.duet >= 0 })
-      const total = duet_votes.length * 10
-      const totalDuetVotes = 100 * this._.sumBy(duet_votes, 'duet') / total
+      const duetVotes = this._.filter(this.filteredVotes, function(o) { return o.duet !== '' && o.duet >= 0 })
+      const total = duetVotes.length * 10
+      const totalDuetVotes = 100 * this._.sumBy(duetVotes, 'duet') / total
       return isNaN(totalDuetVotes) ? 0 : totalDuetVotes
     }
   },

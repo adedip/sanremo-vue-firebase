@@ -29,7 +29,9 @@
 </template>
 
 <script>
-import firebase from 'firebase'
+import firebase from 'firebase/app'
+import 'firebase/database'
+import 'firebase/auth'
 
 export default {
   name: 'ResetPassword',
@@ -41,7 +43,7 @@ export default {
   methods: {
     resetPassword: function() {
       var auth = firebase.auth()
-      return auth.sendPasswordResetEmail(this.email)
+      return auth.sendPasswordResetEmail(this.email.trim())
         .then(() => {
           console.log('email sent')
           this.$router.replace('login')

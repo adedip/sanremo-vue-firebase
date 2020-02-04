@@ -6,7 +6,9 @@ import Song from '@/components/Song'
 import Login from '@/components/Login'
 import SignUp from '@/components/SignUp'
 import ResetPassword from '@/components/ResetPassword'
-import firebase from 'firebase'
+import firebase from 'firebase/app'
+import 'firebase/database'
+import 'firebase/auth'
 
 Vue.use(Router)
 
